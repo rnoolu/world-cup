@@ -18,11 +18,14 @@ data/countries.json       team name -> FIFA code / ISO2 lookup (for flags)
 scripts/fetch_scores.py   pulls live data and rewrites data/matches.json
 .github/workflows/
   update-data.yml          runs fetch_scores.py every 15 min, commits changes
-  deploy-pages.yml         republishes the site to GitHub Pages on every change
 ```
 
 There's no build step and no server — GitHub Actions edits a JSON file in the
 repo, GitHub Pages serves the repo, and the browser polls the JSON file.
+Pages is configured here to **deploy from the branch** (Settings → Pages →
+Source → "Deploy from a branch"), so GitHub's own `pages build and
+deployment` job republishes the site automatically every time
+`update-data.yml` commits fresh data — no separate deploy workflow needed.
 
 ## One-time setup
 
@@ -30,8 +33,10 @@ repo, GitHub Pages serves the repo, and the browser polls the JSON file.
    (`cron`) workflows only fire on the default branch, so `update-data.yml`
    stays dormant until then — you can still run it manually from the Actions
    tab in the meantime via "Run workflow".
-2. **Enable Pages**: repo Settings → Pages → Source → **GitHub Actions**.
-   `deploy-pages.yml` will then publish the site automatically.
+2. **Enable Pages**: repo Settings → Pages → Source → **Deploy from a
+   branch** → pick `main` / `/ (root)`. GitHub then rebuilds and republishes
+   the site on every push automatically, including the commits
+   `update-data.yml` makes.
 3. **Enable Actions write access**: Settings → Actions → General →
    Workflow permissions → **Read and write permissions** (needed so
    `update-data.yml` can commit the refreshed `data/matches.json` back to
@@ -61,11 +66,17 @@ unlike this dev sandbox, have normal internet access) and:
    fixture, looks up moneyline/h2h odds from the-odds-api.com and converts
    them to decimal odds + implied win probability.
 5. Writes the merged result back to `data/matches.json` and commits it —
-   which in turn triggers `deploy-pages.yml` to republish the site.
+   which GitHub's branch-deploy Pages job then automatically republishes.
 
 **A round is only overwritten once real fixtures are found for it.** Until
 then it keeps showing the placeholder bracket (`TBD vs TBD`) so the shape of
 the draw is always visible, even before teams are confirmed.
+
+**Checking it's actually running:** repo → Actions tab → "Update knockout
+stage data" → open any run and expand the "Fetch live scores..." step. It
+prints exactly what it found, e.g. `ESPN returned 32 event(s)...` and a
+per-round match count. You can also click "Run workflow" there to trigger an
+immediate refresh instead of waiting for the next scheduled tick.
 
 ## The "SAMPLE DATA" cards
 
