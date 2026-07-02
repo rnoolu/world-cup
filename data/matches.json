@@ -1,6 +1,6 @@
 {
   "tournament": "FIFA World Cup 2026",
-  "lastUpdated": "2026-07-02T21:02:17Z",
+  "lastUpdated": "2026-07-02T22:18:38Z",
   "source": "ESPN public scoreboard API",
   "rounds": [
     {
@@ -390,7 +390,7 @@
         {
           "id": "m83",
           "matchNumber": 83,
-          "status": "live",
+          "status": "finished",
           "date": "2026-07-02T19:00Z",
           "venue": {
             "name": "SoFi Stadium",
@@ -400,7 +400,7 @@
             "name": "Spain",
             "code": "ESP",
             "iso2": "ES",
-            "score": 1,
+            "score": 3,
             "scorers": [
               {
                 "name": "Mikel Oyarzabal",
@@ -450,7 +450,7 @@
             "scorers": []
           },
           "odds": null,
-          "advancesTo": "m93"
+          "advancesTo": null
         },
         {
           "id": "m85",
@@ -683,9 +683,9 @@
             "scorers": []
           },
           "away": {
-            "name": "Round of 32 12 Winner",
-            "code": "RD3",
-            "iso2": "",
+            "name": "Spain",
+            "code": "ESP",
+            "iso2": "ES",
             "score": 0,
             "scorers": []
           },
