@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>FIFA World Cup 2026 — Knockout Stage Bracket</title>
+<meta name="description" content="Interactive knockout stage bracket for the FIFA World Cup 2026: results, upcoming fixtures, venues, odds and scorers." />
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⚽</text></svg>" />
+<link rel="stylesheet" href="assets/style.css" />
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-row">
+    <h1>FIFA World Cup 2026 <span class="flagbar">🇺🇸🇨🇦🇲🇽</span> — Knockout Stage</h1>
+    <div class="meta-row">
+      <span id="live-indicator" hidden><span class="live-dot"></span> Live match in progress</span>
+      <span>Last updated: <strong id="last-updated">—</strong></span>
+      <button id="refresh-btn" type="button" style="font:inherit;cursor:pointer;background:none;border:1px solid var(--border);border-radius:6px;padding:3px 9px;color:inherit;">Refresh</button>
+    </div>
+  </div>
+  <div class="legend">
+    <span><span class="swatch" style="background:var(--good)"></span> Finished</span>
+    <span><span class="swatch" style="background:var(--critical)"></span> Live</span>
+    <span><span class="swatch" style="background:var(--text-muted)"></span> Scheduled</span>
+    <span><span class="swatch" style="background:var(--demo)"></span> Sample / demo data</span>
+    <span>Click any fixture for venue, odds &amp; scorers</span>
+  </div>
+</header>
+
+<main>
+  <div id="bracket-scroll" class="bracket-scroll">
+    <div id="bracket" class="bracket" aria-label="Knockout stage bracket"></div>
+  </div>
+
+  <div id="side-branch" class="side-branch"></div>
+
+  <p id="empty-note" class="empty-note" hidden>
+    No live data yet. This bracket is showing its structure with placeholder
+    teams. Once the <code>update-data</code> GitHub Actions workflow runs
+    (or you trigger it manually), real fixtures, results and odds will
+    appear here automatically.
+  </p>
+</main>
+
+<footer>
+  Data refreshes automatically via GitHub Actions. Not affiliated with FIFA.
+  Odds are for informational purposes only. ·
+  <a href="https://github.com" id="repo-link" target="_blank" rel="noopener">View source</a>
+</footer>
+
+<div class="modal-overlay" id="modal-overlay" hidden>
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+    <div class="modal-header">
+      <div>
+        <h2 id="modal-title">Match</h2>
+        <div class="sub" id="modal-sub"></div>
+      </div>
+      <button class="modal-close" id="modal-close" type="button" aria-label="Close">✕</button>
+    </div>
+    <div class="modal-body" id="modal-body"></div>
+  </div>
+</div>
+
+<script src="assets/app.js"></script>
+</body>
+</html>
