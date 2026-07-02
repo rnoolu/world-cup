@@ -1,6 +1,6 @@
 {
   "tournament": "FIFA World Cup 2026",
-  "lastUpdated": "2026-07-02T19:54:53Z",
+  "lastUpdated": "2026-07-02T21:02:17Z",
   "source": "ESPN public scoreboard API",
   "rounds": [
     {
@@ -390,7 +390,7 @@
         {
           "id": "m83",
           "matchNumber": 83,
-          "status": "scheduled",
+          "status": "live",
           "date": "2026-07-02T19:00Z",
           "venue": {
             "name": "SoFi Stadium",
@@ -400,8 +400,21 @@
             "name": "Spain",
             "code": "ESP",
             "iso2": "ES",
-            "score": 0,
-            "scorers": []
+            "score": 1,
+            "scorers": [
+              {
+                "name": "Mikel Oyarzabal",
+                "minute": "36'"
+              },
+              {
+                "name": "Pedro Porro",
+                "minute": "66'"
+              },
+              {
+                "name": "Mikel Oyarzabal",
+                "minute": "89'"
+              }
+            ]
           },
           "away": {
             "name": "Austria",
