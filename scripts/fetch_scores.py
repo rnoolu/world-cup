@@ -25,7 +25,6 @@ until real fixtures are known.
 import json
 import os
 import sys
-import time
 import urllib.parse
 import urllib.request
 from datetime import datetime, timezone
@@ -53,6 +52,7 @@ ROUND_NAMES = {
     "third": "Third Place Play-off",
     "final": "Final",
 }
+STATUS_RANK = {"finished": 2, "live": 1, "scheduled": 0}
 
 HEADERS = {"User-Agent": "world-cup-knockout-bracket/1.0 (github actions data fetch)"}
 
@@ -75,19 +75,23 @@ def save_json(path, data):
 
 
 def classify_round(event):
-    """Best-effort round classification using ESPN's own text first."""
-    text_bits = []
+    """Best-effort round classification using ESPN's own round-label notes.
+
+    Deliberately ignores shortName/name: for a fixture whose teams aren't
+    decided yet, those fields are just "<team A> vs <team B>", and the TBD
+    placeholder team name describes the *previous* round's winner (e.g.
+    "Round of 32 11 Winner" is genuinely a Round-of-16 fixture). Scanning
+    that text for round keywords used to misclassify the match one round
+    too early -- this is why extra/misplaced cards were showing up.
+    """
     try:
         comp = event["competitions"][0]
-        for note in comp.get("notes", []) or []:
-            if note.get("headline"):
-                text_bits.append(note["headline"])
-    except (KeyError, IndexError):
-        pass
-    for key in ("shortName", "name"):
-        if event.get(key):
-            text_bits.append(event[key])
-    haystack = " | ".join(text_bits).lower()
+        headlines = [n["headline"] for n in (comp.get("notes") or []) if n.get("headline")]
+    except (KeyError, IndexError, TypeError):
+        headlines = []
+    haystack = " | ".join(headlines).lower()
+    if not haystack:
+        return None  # no round label at all -- caller falls back to date-bucket heuristic
 
     if "third place" in haystack or "3rd place" in haystack:
         return "third"
@@ -101,26 +105,30 @@ def classify_round(event):
         return "ro16"
     if "final" in haystack:
         return "final"
-    return None  # unknown -- caller falls back to date-bucket heuristic
+    return None
 
 
 def date_bucket_fallback(event_date):
-    """Rough fallback classification by date, only used when ESPN gives no
-    round text at all. Boundaries are approximate."""
+    """Fallback classification by kickoff time, only used when ESPN's event
+    carries no round-label notes. Boundaries are full timestamps (not just
+    calendar dates) with a ~9-hour grace past midnight UTC, since a North
+    American evening kickoff can land after midnight UTC and would
+    otherwise roll into the next round's date bucket."""
     try:
-        d = datetime.strptime(event_date[:10], "%Y-%m-%d").date()
+        d = datetime.strptime(event_date[:16], "%Y-%m-%dT%H:%M")
     except (ValueError, TypeError):
         return None
+    iso = d.strftime("%Y-%m-%dT%H:%M")
     buckets = [
-        ("ro32", "2026-06-28", "2026-07-03"),
-        ("ro16", "2026-07-04", "2026-07-07"),
-        ("qf", "2026-07-08", "2026-07-11"),
-        ("sf", "2026-07-12", "2026-07-15"),
-        ("third", "2026-07-16", "2026-07-18"),
-        ("final", "2026-07-19", "2026-07-21"),
+        ("ro32", "2026-06-28T00:00", "2026-07-04T09:00"),
+        ("ro16", "2026-07-04T09:00", "2026-07-08T09:00"),
+        ("qf", "2026-07-08T09:00", "2026-07-12T09:00"),
+        ("sf", "2026-07-12T09:00", "2026-07-16T09:00"),
+        ("third", "2026-07-16T09:00", "2026-07-19T09:00"),
+        ("final", "2026-07-19T09:00", "2026-07-21T00:00"),
     ]
     for rid, start, end in buckets:
-        if start <= str(d) <= end:
+        if start <= iso < end:
             return rid
     return None
 
@@ -151,25 +159,65 @@ def espn_status(event):
 
 
 def fetch_scorers(event_id, home_id, away_id):
+    """Best-effort goalscorer extraction. ESPN's summary endpoint is
+    undocumented and has shown a couple of different shapes for where
+    scoring plays live, so this tries several candidate paths and logs what
+    it found (or didn't) rather than failing silently -- if goals are still
+    missing after a run, the Action log for this step will say why."""
     home_scorers, away_scorers = [], []
     try:
         summary = http_get_json(f"{ESPN_SUMMARY}?event={event_id}")
-        details = summary["header"]["competitions"][0].get("details", [])
-        for play in details:
-            play_type = (play.get("type", {}) or {}).get("text", "")
-            if "goal" not in play_type.lower():
-                continue
-            athletes = play.get("athletesInvolved") or []
-            scorer_name = athletes[0]["displayName"] if athletes else "Unknown"
-            minute = (play.get("clock") or {}).get("displayValue", "")
-            team_id = str((play.get("team") or {}).get("id", ""))
-            entry = {"name": scorer_name, "minute": minute}
-            if team_id == str(home_id):
-                home_scorers.append(entry)
-            elif team_id == str(away_id):
-                away_scorers.append(entry)
-    except Exception as exc:  # noqa: BLE001 - best effort, never fatal
-        print(f"  (scorers unavailable for event {event_id}: {exc})")
+    except Exception as exc:  # noqa: BLE001
+        print(f"  (event {event_id}: summary fetch failed: {exc})")
+        return home_scorers, away_scorers
+
+    candidates, source = [], None
+    try:
+        details = summary["header"]["competitions"][0].get("details") or []
+        if details:
+            candidates, source = details, "header.competitions[0].details"
+    except (KeyError, IndexError, TypeError):
+        pass
+
+    if not candidates:
+        for key in ("keyEvents", "plays"):
+            items = summary.get(key) or []
+            if items:
+                candidates, source = items, key
+                break
+
+    goal_count = 0
+    for play in candidates:
+        play_type_text = ((play.get("type") or {}).get("text")) or play.get("text") or ""
+        is_scoring = play.get("scoringPlay") is True or "goal" in play_type_text.lower()
+        if not is_scoring:
+            continue
+        goal_count += 1
+
+        athletes = (
+            play.get("athletesInvolved")
+            or play.get("athletes")
+            or [p.get("athlete") for p in (play.get("participants") or []) if p.get("athlete")]
+            or []
+        )
+        first = athletes[0] if athletes else None
+        scorer_name = first.get("displayName", "Unknown") if isinstance(first, dict) else "Unknown"
+        minute = (play.get("clock") or {}).get("displayValue", "")
+        team_id = str((play.get("team") or {}).get("id", ""))
+
+        entry = {"name": scorer_name, "minute": minute}
+        if team_id == str(home_id):
+            home_scorers.append(entry)
+        elif team_id == str(away_id):
+            away_scorers.append(entry)
+        else:
+            print(f"  (event {event_id}: goal team id {team_id!r} matched neither home nor away)")
+
+    if not candidates:
+        print(f"  (event {event_id}: no scoring-play data in summary response; top-level keys: {list(summary.keys())})")
+    elif goal_count == 0:
+        print(f"  (event {event_id}: {len(candidates)} item(s) in '{source}' but none looked like goals)")
+
     return home_scorers, away_scorers
 
 
@@ -242,8 +290,6 @@ def espn_event_to_match(event, country_lookup):
         "home": home,
         "away": away,
         "odds": odds,
-        "_espn_home_name": home["name"],
-        "_espn_away_name": away["name"],
     }
 
 
@@ -251,6 +297,41 @@ def fetch_espn_events():
     url = f"{ESPN_SCOREBOARD}?dates={KNOCKOUT_START}-{KNOCKOUT_END}&limit=100"
     payload = http_get_json(url)
     return payload.get("events", [])
+
+
+def dedupe_matches(matches):
+    """Collapse duplicate entries for the same pairing (can happen if ESPN
+    lists a fixture more than once), keeping the most complete version:
+    finished > live > scheduled, then whichever has venue info."""
+    best_by_pair = {}
+    order = []
+    for m in matches:
+        key = frozenset({m["home"]["name"].strip().lower(), m["away"]["name"].strip().lower()})
+        existing = best_by_pair.get(key)
+        if existing is None:
+            best_by_pair[key] = m
+            order.append(key)
+            continue
+        existing_rank = (STATUS_RANK.get(existing["status"], 0), bool(existing.get("venue")))
+        new_rank = (STATUS_RANK.get(m["status"], 0), bool(m.get("venue")))
+        if new_rank > existing_rank:
+            best_by_pair[key] = m
+    return [best_by_pair[k] for k in order]
+
+
+def cap_to_slots(rid, matches):
+    """Safety net: a knockout round can only ever have this many matches.
+    If classification still overshoots for some reason, keep the earliest
+    N by kickoff time and log it loudly rather than showing extra cards."""
+    limit = ROUND_SLOT_COUNT[rid]
+    if len(matches) <= limit:
+        return matches
+    print(
+        f"  WARNING: {ROUND_NAMES[rid]} had {len(matches)} candidate fixture(s) after "
+        f"dedup, more than its {limit} slots. Keeping the {limit} earliest by kickoff "
+        f"and dropping the rest."
+    )
+    return matches[:limit]
 
 
 def apply_odds_api_fallback(rounds_by_id, api_key):
@@ -339,6 +420,8 @@ def main():
 
     for rid in ROUND_ORDER:
         grouped[rid].sort(key=lambda m: m.get("date") or "")
+        grouped[rid] = dedupe_matches(grouped[rid])
+        grouped[rid] = cap_to_slots(rid, grouped[rid])
 
     apply_odds_api_fallback(grouped, os.environ.get("ODDS_API_KEY"))
 
