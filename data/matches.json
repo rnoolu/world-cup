@@ -1,6 +1,6 @@
 {
   "tournament": "FIFA World Cup 2026",
-  "lastUpdated": "2026-07-02T09:19:00Z",
+  "lastUpdated": "2026-07-02T09:32:01Z",
   "source": "ESPN public scoreboard API",
   "rounds": [
     {
@@ -76,7 +76,7 @@
             ]
           },
           "odds": null,
-          "advancesTo": "m89"
+          "advancesTo": "m91"
         },
         {
           "id": "m75",
@@ -148,7 +148,7 @@
             ]
           },
           "odds": null,
-          "advancesTo": "m90"
+          "advancesTo": "m89"
         },
         {
           "id": "m77",
@@ -227,7 +227,7 @@
             "scorers": []
           },
           "odds": null,
-          "advancesTo": "m91"
+          "advancesTo": "m90"
         },
         {
           "id": "m79",
@@ -350,7 +350,7 @@
             ]
           },
           "odds": null,
-          "advancesTo": "m93"
+          "advancesTo": "m94"
         },
         {
           "id": "m82",
@@ -385,7 +385,7 @@
             "scorers": []
           },
           "odds": null,
-          "advancesTo": "m93"
+          "advancesTo": "m94"
         },
         {
           "id": "m83",
@@ -411,7 +411,7 @@
             "scorers": []
           },
           "odds": null,
-          "advancesTo": "m94"
+          "advancesTo": "m93"
         },
         {
           "id": "m84",
@@ -437,7 +437,7 @@
             "scorers": []
           },
           "odds": null,
-          "advancesTo": "m94"
+          "advancesTo": "m93"
         },
         {
           "id": "m85",
@@ -463,7 +463,7 @@
             "scorers": []
           },
           "odds": null,
-          "advancesTo": "m95"
+          "advancesTo": "m96"
         },
         {
           "id": "m86",
@@ -541,7 +541,7 @@
             "scorers": []
           },
           "odds": null,
-          "advancesTo": "m96"
+          "advancesTo": "m95"
         }
       ]
     },
@@ -625,7 +625,7 @@
             "scorers": []
           },
           "odds": null,
-          "advancesTo": "m98"
+          "advancesTo": "m99"
         },
         {
           "id": "m92",
@@ -651,7 +651,7 @@
             "scorers": []
           },
           "odds": null,
-          "advancesTo": "m98"
+          "advancesTo": "m99"
         },
         {
           "id": "m93",
@@ -677,7 +677,7 @@
             "scorers": []
           },
           "odds": null,
-          "advancesTo": "m99"
+          "advancesTo": "m98"
         },
         {
           "id": "m94",
@@ -703,7 +703,7 @@
             "scorers": []
           },
           "odds": null,
-          "advancesTo": "m99"
+          "advancesTo": "m98"
         },
         {
           "id": "m95",
