@@ -24,6 +24,7 @@ until real fixtures are known.
 
 import json
 import os
+import re
 import sys
 import urllib.parse
 import urllib.request
@@ -54,34 +55,49 @@ ROUND_NAMES = {
 }
 STATUS_RANK = {"finished": 2, "live": 1, "scheduled": 0}
 
+# Which round's matches feed into which. sf->final only (not sf->third):
+# the bracket UI only draws a connector for the winners' path; the third
+# place match is rendered as an unconnected side branch, same as before.
+ADVANCE_CHAIN = [("ro32", "ro16"), ("ro16", "qf"), ("qf", "sf"), ("sf", "final")]
+
+# Matches ESPN's own placeholder team names, e.g. "Round of 32 11 Winner"
+# or "Semifinal 2 Loser" -- used to figure out which *slot* in the current
+# round feeds a given next-round match, before either side has been played.
+PLACEHOLDER_RE = re.compile(r"(round of 32|round of 16|quarterfinal|semifinal)\s+(\d+)\s+(winner|loser)", re.IGNORECASE)
+ROUND_LABEL_TO_ID = {
+    "round of 32": "ro32",
+    "round of 16": "ro16",
+    "quarterfinal": "qf",
+    "semifinal": "sf",
+}
+
 
 def build_canonical_skeleton():
-    """Fixed match id / matchNumber / advancesTo per bracket slot, independent
-    of whatever currently happens to be in data/matches.json. Positional
+    """Fixed match id / matchNumber per bracket slot, independent of
+    whatever currently happens to be in data/matches.json. Positional
     mapping used to read this from the live file, which meant a round that
     briefly had fewer real fixtures than its slot count (e.g. only 2 of 4
     Quarterfinals found on an early run) permanently lost the proper ids for
-    the missing slots on every run after -- they'd fall back to synthetic
-    ids with no advancesTo, breaking that match's bracket connector line.
-    Recomputing this fresh each run makes that class of drift impossible."""
+    the missing slots on every run after. Recomputing this fresh each run
+    makes that class of drift impossible.
+
+    Note this only fixes *ids*, not bracket connections -- see
+    link_advances_to() for how those are derived."""
     ro32_ids = [f"m{n}" for n in range(73, 89)]
     ro16_ids = [f"m{n}" for n in range(89, 97)]
     qf_ids = [f"m{n}" for n in range(97, 101)]
     sf_ids = ["m101", "m102"]
 
-    def slots(ids, targets_per_pair):
-        return [
-            {"id": mid, "matchNumber": int(mid[1:]), "advancesTo": targets_per_pair[i // 2]}
-            for i, mid in enumerate(ids)
-        ]
+    def slots(ids):
+        return [{"id": mid, "matchNumber": int(mid[1:])} for mid in ids]
 
     return {
-        "ro32": slots(ro32_ids, ro16_ids),
-        "ro16": slots(ro16_ids, qf_ids),
-        "qf": slots(qf_ids, sf_ids),
-        "sf": [{"id": mid, "matchNumber": int(mid[1:]), "advancesTo": "m104"} for mid in sf_ids],
-        "third": [{"id": "m103", "matchNumber": 103, "advancesTo": None}],
-        "final": [{"id": "m104", "matchNumber": 104, "advancesTo": None}],
+        "ro32": slots(ro32_ids),
+        "ro16": slots(ro16_ids),
+        "qf": slots(qf_ids),
+        "sf": slots(sf_ids),
+        "third": [{"id": "m103", "matchNumber": 103}],
+        "final": [{"id": "m104", "matchNumber": 104}],
     }
 
 
@@ -367,6 +383,55 @@ def cap_to_slots(rid, matches):
     return matches[:limit]
 
 
+def link_advances_to(rounds_by_id):
+    """Sets each match's advancesTo to the next-round match its winner
+    actually plays in.
+
+    This used to come from a hardcoded pairing tree (match 1+2 of a round
+    feed match 1 of the next, etc.), which was a *guess* at the real FIFA
+    bracket seeding and turned out wrong -- e.g. the USA's real Round of 16
+    opponent (Belgium) didn't match the assumed pairing, so the connector
+    line pointed at the wrong match. This derives connections from actual
+    data instead, in two passes:
+
+    1. Name matching: if a team from the current round's match also
+       appears in a next-round match, that's a definite link -- reliable
+       whenever either match has a real (non-placeholder) team decided.
+    2. Placeholder-ordinal matching: ESPN's own TBD team names look like
+       "Round of 32 11 Winner", which tells us which *slot* in the current
+       round feeds that next-round match, even before it's been played.
+       This assumes ESPN's own ordinal numbering follows the same kickoff
+       order used elsewhere in this script.
+
+    Whatever neither pass can resolve is left as None (no connector drawn)
+    rather than guessing -- a missing line is honest, a wrong one isn't.
+    """
+    for cur_id, nxt_id in ADVANCE_CHAIN:
+        cur_matches = rounds_by_id[cur_id]["matches"]
+        nxt_matches = rounds_by_id[nxt_id]["matches"]
+
+        for m in cur_matches:
+            m["advancesTo"] = None
+            names = {m["home"]["name"].strip().lower(), m["away"]["name"].strip().lower()}
+            for nm in nxt_matches:
+                nxt_names = {nm["home"]["name"].strip().lower(), nm["away"]["name"].strip().lower()}
+                if names & nxt_names:
+                    m["advancesTo"] = nm["id"]
+                    break
+
+        for nm in nxt_matches:
+            for side in (nm["home"], nm["away"]):
+                placeholder = PLACEHOLDER_RE.search(side.get("name", ""))
+                if not placeholder:
+                    continue
+                label, ordinal = placeholder.group(1).lower(), int(placeholder.group(2))
+                if ROUND_LABEL_TO_ID.get(label) != cur_id:
+                    continue
+                idx = ordinal - 1
+                if 0 <= idx < len(cur_matches) and not cur_matches[idx]["advancesTo"]:
+                    cur_matches[idx]["advancesTo"] = nm["id"]
+
+
 def apply_odds_api_fallback(rounds_by_id, api_key):
     """For matches still missing odds, try the-odds-api.com's soccer_fifa_world_cup market."""
     if not api_key:
@@ -492,7 +557,7 @@ def main():
                         "scorers": m["away"]["scorers"],
                     },
                     "odds": m["odds"],
-                    "advancesTo": slot.get("advancesTo"),
+                    "advancesTo": None,
                 }
             )
         rounds_by_id[rid]["matches"] = new_matches
@@ -502,6 +567,8 @@ def main():
         print("No knockout fixtures found yet from ESPN (group stage likely still in progress).")
         print("Leaving data/matches.json unchanged (skeleton/demo data preserved).")
         sys.exit(0)
+
+    link_advances_to(rounds_by_id)
 
     current["rounds"] = [rounds_by_id[rid] for rid in ROUND_ORDER]
     current["lastUpdated"] = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
