@@ -54,6 +54,39 @@ ROUND_NAMES = {
 }
 STATUS_RANK = {"finished": 2, "live": 1, "scheduled": 0}
 
+
+def build_canonical_skeleton():
+    """Fixed match id / matchNumber / advancesTo per bracket slot, independent
+    of whatever currently happens to be in data/matches.json. Positional
+    mapping used to read this from the live file, which meant a round that
+    briefly had fewer real fixtures than its slot count (e.g. only 2 of 4
+    Quarterfinals found on an early run) permanently lost the proper ids for
+    the missing slots on every run after -- they'd fall back to synthetic
+    ids with no advancesTo, breaking that match's bracket connector line.
+    Recomputing this fresh each run makes that class of drift impossible."""
+    ro32_ids = [f"m{n}" for n in range(73, 89)]
+    ro16_ids = [f"m{n}" for n in range(89, 97)]
+    qf_ids = [f"m{n}" for n in range(97, 101)]
+    sf_ids = ["m101", "m102"]
+
+    def slots(ids, targets_per_pair):
+        return [
+            {"id": mid, "matchNumber": int(mid[1:]), "advancesTo": targets_per_pair[i // 2]}
+            for i, mid in enumerate(ids)
+        ]
+
+    return {
+        "ro32": slots(ro32_ids, ro16_ids),
+        "ro16": slots(ro16_ids, qf_ids),
+        "qf": slots(qf_ids, sf_ids),
+        "sf": [{"id": mid, "matchNumber": int(mid[1:]), "advancesTo": "m104"} for mid in sf_ids],
+        "third": [{"id": "m103", "matchNumber": 103, "advancesTo": None}],
+        "final": [{"id": "m104", "matchNumber": 104, "advancesTo": None}],
+    }
+
+
+CANONICAL_SKELETON = build_canonical_skeleton()
+
 HEADERS = {"User-Agent": "world-cup-knockout-bracket/1.0 (github actions data fetch)"}
 
 
@@ -433,7 +466,7 @@ def main():
         if not found:
             continue  # keep existing skeleton/demo/previous data for this round
         updated_any_round = True
-        skeleton_matches = rounds_by_id[rid]["matches"]
+        skeleton_matches = CANONICAL_SKELETON[rid]
         new_matches = []
         for i, m in enumerate(found):
             slot = skeleton_matches[i] if i < len(skeleton_matches) else {}
