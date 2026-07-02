@@ -1,74 +1,912 @@
 {
   "tournament": "FIFA World Cup 2026",
-  "lastUpdated": null,
-  "source": null,
+  "lastUpdated": "2026-07-02T08:53:22Z",
+  "source": "ESPN public scoreboard API",
   "rounds": [
     {
       "id": "ro32",
       "name": "Round of 32",
       "matches": [
-        { "id": "m73", "matchNumber": 73, "isDemo": true, "status": "finished", "date": "2026-06-28T18:00:00Z", "venue": { "name": "Example Stadium", "city": "Example City" }, "home": { "name": "Team A", "code": "AAA", "iso2": "", "score": 2, "scorers": [ { "name": "A. Striker", "minute": "23'" }, { "name": "A. Striker", "minute": "77'" } ] }, "away": { "name": "Team B", "code": "BBB", "iso2": "", "score": 1, "scorers": [ { "name": "B. Forward", "minute": "54'" } ] }, "odds": null, "advancesTo": "m89" },
-        { "id": "m74", "matchNumber": 74, "isDemo": true, "status": "scheduled", "date": "2026-06-29T21:00:00Z", "venue": { "name": "Example Arena", "city": "Example Town" }, "home": { "name": "Team C", "code": "CCC", "iso2": "", "score": null, "scorers": [] }, "away": { "name": "Team D", "code": "DDD", "iso2": "", "score": null, "scorers": [] }, "odds": { "home": 2.10, "draw": 3.30, "away": 3.40, "bookmaker": "Example Odds" }, "advancesTo": "m89" },
-        { "id": "m75", "matchNumber": 75, "status": "scheduled", "date": null, "venue": null, "home": { "name": "TBD", "code": "TBD", "iso2": "" }, "away": { "name": "TBD", "code": "TBD", "iso2": "" }, "odds": null, "advancesTo": "m90" },
-        { "id": "m76", "matchNumber": 76, "status": "scheduled", "date": null, "venue": null, "home": { "name": "TBD", "code": "TBD", "iso2": "" }, "away": { "name": "TBD", "code": "TBD", "iso2": "" }, "odds": null, "advancesTo": "m90" },
-        { "id": "m77", "matchNumber": 77, "status": "scheduled", "date": null, "venue": null, "home": { "name": "TBD", "code": "TBD", "iso2": "" }, "away": { "name": "TBD", "code": "TBD", "iso2": "" }, "odds": null, "advancesTo": "m91" },
-        { "id": "m78", "matchNumber": 78, "status": "scheduled", "date": null, "venue": null, "home": { "name": "TBD", "code": "TBD", "iso2": "" }, "away": { "name": "TBD", "code": "TBD", "iso2": "" }, "odds": null, "advancesTo": "m91" },
-        { "id": "m79", "matchNumber": 79, "status": "scheduled", "date": null, "venue": null, "home": { "name": "TBD", "code": "TBD", "iso2": "" }, "away": { "name": "TBD", "code": "TBD", "iso2": "" }, "odds": null, "advancesTo": "m92" },
-        { "id": "m80", "matchNumber": 80, "status": "scheduled", "date": null, "venue": null, "home": { "name": "TBD", "code": "TBD", "iso2": "" }, "away": { "name": "TBD", "code": "TBD", "iso2": "" }, "odds": null, "advancesTo": "m92" },
-        { "id": "m81", "matchNumber": 81, "status": "scheduled", "date": null, "venue": null, "home": { "name": "TBD", "code": "TBD", "iso2": "" }, "away": { "name": "TBD", "code": "TBD", "iso2": "" }, "odds": null, "advancesTo": "m93" },
-        { "id": "m82", "matchNumber": 82, "status": "scheduled", "date": null, "venue": null, "home": { "name": "TBD", "code": "TBD", "iso2": "" }, "away": { "name": "TBD", "code": "TBD", "iso2": "" }, "odds": null, "advancesTo": "m93" },
-        { "id": "m83", "matchNumber": 83, "status": "scheduled", "date": null, "venue": null, "home": { "name": "TBD", "code": "TBD", "iso2": "" }, "away": { "name": "TBD", "code": "TBD", "iso2": "" }, "odds": null, "advancesTo": "m94" },
-        { "id": "m84", "matchNumber": 84, "status": "scheduled", "date": null, "venue": null, "home": { "name": "TBD", "code": "TBD", "iso2": "" }, "away": { "name": "TBD", "code": "TBD", "iso2": "" }, "odds": null, "advancesTo": "m94" },
-        { "id": "m85", "matchNumber": 85, "status": "scheduled", "date": null, "venue": null, "home": { "name": "TBD", "code": "TBD", "iso2": "" }, "away": { "name": "TBD", "code": "TBD", "iso2": "" }, "odds": null, "advancesTo": "m95" },
-        { "id": "m86", "matchNumber": 86, "status": "scheduled", "date": null, "venue": null, "home": { "name": "TBD", "code": "TBD", "iso2": "" }, "away": { "name": "TBD", "code": "TBD", "iso2": "" }, "odds": null, "advancesTo": "m95" },
-        { "id": "m87", "matchNumber": 87, "status": "scheduled", "date": null, "venue": null, "home": { "name": "TBD", "code": "TBD", "iso2": "" }, "away": { "name": "TBD", "code": "TBD", "iso2": "" }, "odds": null, "advancesTo": "m96" },
-        { "id": "m88", "matchNumber": 88, "status": "scheduled", "date": null, "venue": null, "home": { "name": "TBD", "code": "TBD", "iso2": "" }, "away": { "name": "TBD", "code": "TBD", "iso2": "" }, "odds": null, "advancesTo": "m96" }
+        {
+          "id": "m73",
+          "matchNumber": 73,
+          "status": "finished",
+          "date": "2026-06-28T19:00Z",
+          "venue": {
+            "name": "SoFi Stadium",
+            "city": "Inglewood, California"
+          },
+          "home": {
+            "name": "South Africa",
+            "code": "RSA",
+            "iso2": "ZA",
+            "score": 0,
+            "scorers": []
+          },
+          "away": {
+            "name": "Canada",
+            "code": "CAN",
+            "iso2": "CA",
+            "score": 1,
+            "scorers": []
+          },
+          "odds": null,
+          "advancesTo": "m89"
+        },
+        {
+          "id": "m74",
+          "matchNumber": 74,
+          "status": "finished",
+          "date": "2026-06-29T17:00Z",
+          "venue": {
+            "name": "NRG Stadium",
+            "city": "Houston, Texas"
+          },
+          "home": {
+            "name": "Brazil",
+            "code": "BRA",
+            "iso2": "BR",
+            "score": 2,
+            "scorers": []
+          },
+          "away": {
+            "name": "Japan",
+            "code": "JPN",
+            "iso2": "JP",
+            "score": 1,
+            "scorers": []
+          },
+          "odds": null,
+          "advancesTo": "m89"
+        },
+        {
+          "id": "m75",
+          "matchNumber": 75,
+          "status": "finished",
+          "date": "2026-06-29T20:30Z",
+          "venue": {
+            "name": "Gillette Stadium",
+            "city": "Foxborough, Massachusetts"
+          },
+          "home": {
+            "name": "Germany",
+            "code": "GER",
+            "iso2": "DE",
+            "score": 1,
+            "scorers": []
+          },
+          "away": {
+            "name": "Paraguay",
+            "code": "PAR",
+            "iso2": "PY",
+            "score": 1,
+            "scorers": []
+          },
+          "odds": null,
+          "advancesTo": "m90"
+        },
+        {
+          "id": "m76",
+          "matchNumber": 76,
+          "status": "finished",
+          "date": "2026-06-30T01:00Z",
+          "venue": {
+            "name": "Estadio BBVA",
+            "city": "Guadalupe"
+          },
+          "home": {
+            "name": "Netherlands",
+            "code": "NED",
+            "iso2": "NL",
+            "score": 1,
+            "scorers": []
+          },
+          "away": {
+            "name": "Morocco",
+            "code": "MAR",
+            "iso2": "MA",
+            "score": 1,
+            "scorers": []
+          },
+          "odds": null,
+          "advancesTo": "m90"
+        },
+        {
+          "id": "m77",
+          "matchNumber": 77,
+          "status": "finished",
+          "date": "2026-06-30T17:00Z",
+          "venue": {
+            "name": "AT&T Stadium",
+            "city": "Arlington, Texas"
+          },
+          "home": {
+            "name": "Ivory Coast",
+            "code": "CIV",
+            "iso2": "CI",
+            "score": 1,
+            "scorers": []
+          },
+          "away": {
+            "name": "Norway",
+            "code": "NOR",
+            "iso2": "NO",
+            "score": 2,
+            "scorers": []
+          },
+          "odds": null,
+          "advancesTo": "m91"
+        },
+        {
+          "id": "m78",
+          "matchNumber": 78,
+          "status": "finished",
+          "date": "2026-06-30T21:00Z",
+          "venue": {
+            "name": "MetLife Stadium",
+            "city": "East Rutherford, New Jersey"
+          },
+          "home": {
+            "name": "France",
+            "code": "FRA",
+            "iso2": "FR",
+            "score": 3,
+            "scorers": []
+          },
+          "away": {
+            "name": "Sweden",
+            "code": "SWE",
+            "iso2": "SE",
+            "score": 0,
+            "scorers": []
+          },
+          "odds": null,
+          "advancesTo": "m91"
+        },
+        {
+          "id": "m79",
+          "matchNumber": 79,
+          "status": "finished",
+          "date": "2026-07-01T02:00Z",
+          "venue": {
+            "name": "Estadio Banorte",
+            "city": "Mexico City"
+          },
+          "home": {
+            "name": "Mexico",
+            "code": "MEX",
+            "iso2": "MX",
+            "score": 2,
+            "scorers": []
+          },
+          "away": {
+            "name": "Ecuador",
+            "code": "ECU",
+            "iso2": "EC",
+            "score": 0,
+            "scorers": []
+          },
+          "odds": null,
+          "advancesTo": "m92"
+        },
+        {
+          "id": "m80",
+          "matchNumber": 80,
+          "status": "finished",
+          "date": "2026-07-01T16:00Z",
+          "venue": {
+            "name": "Mercedes-Benz Stadium",
+            "city": "Atlanta, Georgia"
+          },
+          "home": {
+            "name": "England",
+            "code": "ENG",
+            "iso2": "GB-ENG",
+            "score": 2,
+            "scorers": []
+          },
+          "away": {
+            "name": "Congo DR",
+            "code": "COD",
+            "iso2": "",
+            "score": 1,
+            "scorers": []
+          },
+          "odds": null,
+          "advancesTo": "m92"
+        },
+        {
+          "id": "m81",
+          "matchNumber": 81,
+          "status": "finished",
+          "date": "2026-07-01T20:00Z",
+          "venue": {
+            "name": "Lumen Field",
+            "city": "Seattle, Washington"
+          },
+          "home": {
+            "name": "Belgium",
+            "code": "BEL",
+            "iso2": "BE",
+            "score": 3,
+            "scorers": []
+          },
+          "away": {
+            "name": "Senegal",
+            "code": "SEN",
+            "iso2": "SN",
+            "score": 2,
+            "scorers": []
+          },
+          "odds": null,
+          "advancesTo": "m93"
+        },
+        {
+          "id": "m82",
+          "matchNumber": 82,
+          "status": "finished",
+          "date": "2026-07-02T00:00Z",
+          "venue": {
+            "name": "Levi's Stadium",
+            "city": "Santa Clara, California"
+          },
+          "home": {
+            "name": "United States",
+            "code": "USA",
+            "iso2": "US",
+            "score": 2,
+            "scorers": []
+          },
+          "away": {
+            "name": "Bosnia-Herzegovina",
+            "code": "BIH",
+            "iso2": "",
+            "score": 0,
+            "scorers": []
+          },
+          "odds": null,
+          "advancesTo": "m93"
+        },
+        {
+          "id": "m83",
+          "matchNumber": 83,
+          "status": "scheduled",
+          "date": "2026-07-02T19:00Z",
+          "venue": {
+            "name": "SoFi Stadium",
+            "city": "Inglewood, California"
+          },
+          "home": {
+            "name": "Spain",
+            "code": "ESP",
+            "iso2": "ES",
+            "score": 0,
+            "scorers": []
+          },
+          "away": {
+            "name": "Austria",
+            "code": "AUT",
+            "iso2": "AT",
+            "score": 0,
+            "scorers": []
+          },
+          "odds": null,
+          "advancesTo": "m94"
+        },
+        {
+          "id": "m84",
+          "matchNumber": 84,
+          "status": "scheduled",
+          "date": "2026-07-02T23:00Z",
+          "venue": {
+            "name": "BMO Field",
+            "city": "Toronto"
+          },
+          "home": {
+            "name": "Portugal",
+            "code": "POR",
+            "iso2": "PT",
+            "score": 0,
+            "scorers": []
+          },
+          "away": {
+            "name": "Croatia",
+            "code": "CRO",
+            "iso2": "HR",
+            "score": 0,
+            "scorers": []
+          },
+          "odds": null,
+          "advancesTo": "m94"
+        },
+        {
+          "id": "m85",
+          "matchNumber": 85,
+          "status": "scheduled",
+          "date": "2026-07-03T03:00Z",
+          "venue": {
+            "name": "BC Place",
+            "city": "Vancouver"
+          },
+          "home": {
+            "name": "Switzerland",
+            "code": "SUI",
+            "iso2": "CH",
+            "score": 0,
+            "scorers": []
+          },
+          "away": {
+            "name": "Algeria",
+            "code": "ALG",
+            "iso2": "DZ",
+            "score": 0,
+            "scorers": []
+          },
+          "odds": null,
+          "advancesTo": "m95"
+        },
+        {
+          "id": "m86",
+          "matchNumber": 86,
+          "status": "scheduled",
+          "date": "2026-07-03T18:00Z",
+          "venue": {
+            "name": "AT&T Stadium",
+            "city": "Arlington, Texas"
+          },
+          "home": {
+            "name": "Australia",
+            "code": "AUS",
+            "iso2": "AU",
+            "score": 0,
+            "scorers": []
+          },
+          "away": {
+            "name": "Egypt",
+            "code": "EGY",
+            "iso2": "EG",
+            "score": 0,
+            "scorers": []
+          },
+          "odds": null,
+          "advancesTo": "m95"
+        },
+        {
+          "id": "m87",
+          "matchNumber": 87,
+          "status": "scheduled",
+          "date": "2026-07-03T22:00Z",
+          "venue": {
+            "name": "Hard Rock Stadium",
+            "city": "Miami Gardens, Florida"
+          },
+          "home": {
+            "name": "Argentina",
+            "code": "ARG",
+            "iso2": "AR",
+            "score": 0,
+            "scorers": []
+          },
+          "away": {
+            "name": "Cape Verde",
+            "code": "CPV",
+            "iso2": "CV",
+            "score": 0,
+            "scorers": []
+          },
+          "odds": null,
+          "advancesTo": "m96"
+        },
+        {
+          "id": "m88",
+          "matchNumber": 88,
+          "status": "scheduled",
+          "date": "2026-07-06T19:00Z",
+          "venue": {
+            "name": "AT&T Stadium",
+            "city": "Arlington, Texas"
+          },
+          "home": {
+            "name": "Round of 32 11 Winner",
+            "code": "RD3",
+            "iso2": "",
+            "score": 0,
+            "scorers": []
+          },
+          "away": {
+            "name": "Round of 32 12 Winner",
+            "code": "RD3",
+            "iso2": "",
+            "score": 0,
+            "scorers": []
+          },
+          "odds": null,
+          "advancesTo": "m96"
+        },
+        {
+          "id": "ro32-17",
+          "matchNumber": null,
+          "status": "scheduled",
+          "date": "2026-07-07T16:00Z",
+          "venue": {
+            "name": "Mercedes-Benz Stadium",
+            "city": "Atlanta, Georgia"
+          },
+          "home": {
+            "name": "Round of 32 14 Winner",
+            "code": "RD3",
+            "iso2": "",
+            "score": 0,
+            "scorers": []
+          },
+          "away": {
+            "name": "Round of 32 16 Winner",
+            "code": "RD3",
+            "iso2": "",
+            "score": 0,
+            "scorers": []
+          },
+          "odds": null,
+          "advancesTo": null
+        },
+        {
+          "id": "ro32-18",
+          "matchNumber": null,
+          "status": "scheduled",
+          "date": "2026-07-07T20:00Z",
+          "venue": {
+            "name": "BC Place",
+            "city": "Vancouver"
+          },
+          "home": {
+            "name": "Round of 32 13 Winner",
+            "code": "RD3",
+            "iso2": "",
+            "score": 0,
+            "scorers": []
+          },
+          "away": {
+            "name": "Round of 32 15 Winner",
+            "code": "RD3",
+            "iso2": "",
+            "score": 0,
+            "scorers": []
+          },
+          "odds": null,
+          "advancesTo": null
+        }
       ]
     },
     {
       "id": "ro16",
       "name": "Round of 16",
       "matches": [
-        { "id": "m89", "matchNumber": 89, "status": "scheduled", "date": null, "venue": null, "home": { "name": "Winner M73", "code": "TBD", "iso2": "" }, "away": { "name": "Winner M74", "code": "TBD", "iso2": "" }, "odds": null, "advancesTo": "m97" },
-        { "id": "m90", "matchNumber": 90, "status": "scheduled", "date": null, "venue": null, "home": { "name": "Winner M75", "code": "TBD", "iso2": "" }, "away": { "name": "Winner M76", "code": "TBD", "iso2": "" }, "odds": null, "advancesTo": "m97" },
-        { "id": "m91", "matchNumber": 91, "status": "scheduled", "date": null, "venue": null, "home": { "name": "Winner M77", "code": "TBD", "iso2": "" }, "away": { "name": "Winner M78", "code": "TBD", "iso2": "" }, "odds": null, "advancesTo": "m98" },
-        { "id": "m92", "matchNumber": 92, "status": "scheduled", "date": null, "venue": null, "home": { "name": "Winner M79", "code": "TBD", "iso2": "" }, "away": { "name": "Winner M80", "code": "TBD", "iso2": "" }, "odds": null, "advancesTo": "m98" },
-        { "id": "m93", "matchNumber": 93, "status": "scheduled", "date": null, "venue": null, "home": { "name": "Winner M81", "code": "TBD", "iso2": "" }, "away": { "name": "Winner M82", "code": "TBD", "iso2": "" }, "odds": null, "advancesTo": "m99" },
-        { "id": "m94", "matchNumber": 94, "status": "scheduled", "date": null, "venue": null, "home": { "name": "Winner M83", "code": "TBD", "iso2": "" }, "away": { "name": "Winner M84", "code": "TBD", "iso2": "" }, "odds": null, "advancesTo": "m99" },
-        { "id": "m95", "matchNumber": 95, "status": "scheduled", "date": null, "venue": null, "home": { "name": "Winner M85", "code": "TBD", "iso2": "" }, "away": { "name": "Winner M86", "code": "TBD", "iso2": "" }, "odds": null, "advancesTo": "m100" },
-        { "id": "m96", "matchNumber": 96, "status": "scheduled", "date": null, "venue": null, "home": { "name": "Winner M87", "code": "TBD", "iso2": "" }, "away": { "name": "Winner M88", "code": "TBD", "iso2": "" }, "odds": null, "advancesTo": "m100" }
+        {
+          "id": "m89",
+          "matchNumber": 89,
+          "status": "scheduled",
+          "date": "2026-07-04T01:30Z",
+          "venue": {
+            "name": "GEHA Field at Arrowhead Stadium",
+            "city": "Kansas City, Missouri"
+          },
+          "home": {
+            "name": "Colombia",
+            "code": "COL",
+            "iso2": "CO",
+            "score": 0,
+            "scorers": []
+          },
+          "away": {
+            "name": "Ghana",
+            "code": "GHA",
+            "iso2": "GH",
+            "score": 0,
+            "scorers": []
+          },
+          "odds": null,
+          "advancesTo": "m97"
+        },
+        {
+          "id": "m90",
+          "matchNumber": 90,
+          "status": "scheduled",
+          "date": "2026-07-04T17:00Z",
+          "venue": {
+            "name": "NRG Stadium",
+            "city": "Houston, Texas"
+          },
+          "home": {
+            "name": "Canada",
+            "code": "CAN",
+            "iso2": "CA",
+            "score": 0,
+            "scorers": []
+          },
+          "away": {
+            "name": "Morocco",
+            "code": "MAR",
+            "iso2": "MA",
+            "score": 0,
+            "scorers": []
+          },
+          "odds": null,
+          "advancesTo": "m97"
+        },
+        {
+          "id": "m91",
+          "matchNumber": 91,
+          "status": "scheduled",
+          "date": "2026-07-04T21:00Z",
+          "venue": {
+            "name": "Lincoln Financial Field",
+            "city": "Philadelphia, Pennsylvania"
+          },
+          "home": {
+            "name": "Paraguay",
+            "code": "PAR",
+            "iso2": "PY",
+            "score": 0,
+            "scorers": []
+          },
+          "away": {
+            "name": "France",
+            "code": "FRA",
+            "iso2": "FR",
+            "score": 0,
+            "scorers": []
+          },
+          "odds": null,
+          "advancesTo": "m98"
+        },
+        {
+          "id": "m92",
+          "matchNumber": 92,
+          "status": "scheduled",
+          "date": "2026-07-05T20:00Z",
+          "venue": {
+            "name": "MetLife Stadium",
+            "city": "East Rutherford, New Jersey"
+          },
+          "home": {
+            "name": "Brazil",
+            "code": "BRA",
+            "iso2": "BR",
+            "score": 0,
+            "scorers": []
+          },
+          "away": {
+            "name": "Norway",
+            "code": "NOR",
+            "iso2": "NO",
+            "score": 0,
+            "scorers": []
+          },
+          "odds": null,
+          "advancesTo": "m98"
+        },
+        {
+          "id": "m93",
+          "matchNumber": 93,
+          "status": "scheduled",
+          "date": "2026-07-06T00:00Z",
+          "venue": {
+            "name": "Estadio Banorte",
+            "city": "Mexico City"
+          },
+          "home": {
+            "name": "Mexico",
+            "code": "MEX",
+            "iso2": "MX",
+            "score": 0,
+            "scorers": []
+          },
+          "away": {
+            "name": "England",
+            "code": "ENG",
+            "iso2": "GB-ENG",
+            "score": 0,
+            "scorers": []
+          },
+          "odds": null,
+          "advancesTo": "m99"
+        },
+        {
+          "id": "m94",
+          "matchNumber": 94,
+          "status": "scheduled",
+          "date": "2026-07-07T00:00Z",
+          "venue": {
+            "name": "Lumen Field",
+            "city": "Seattle, Washington"
+          },
+          "home": {
+            "name": "United States",
+            "code": "USA",
+            "iso2": "US",
+            "score": 0,
+            "scorers": []
+          },
+          "away": {
+            "name": "Belgium",
+            "code": "BEL",
+            "iso2": "BE",
+            "score": 0,
+            "scorers": []
+          },
+          "odds": null,
+          "advancesTo": "m99"
+        },
+        {
+          "id": "m95",
+          "matchNumber": 95,
+          "status": "scheduled",
+          "date": "2026-07-09T20:00Z",
+          "venue": {
+            "name": "Gillette Stadium",
+            "city": "Foxborough, Massachusetts"
+          },
+          "home": {
+            "name": "Round of 16 1 Winner",
+            "code": "RD1",
+            "iso2": "",
+            "score": 0,
+            "scorers": []
+          },
+          "away": {
+            "name": "Round of 16 2 Winner",
+            "code": "RD1",
+            "iso2": "",
+            "score": 0,
+            "scorers": []
+          },
+          "odds": null,
+          "advancesTo": "m100"
+        },
+        {
+          "id": "m96",
+          "matchNumber": 96,
+          "status": "scheduled",
+          "date": "2026-07-10T19:00Z",
+          "venue": {
+            "name": "SoFi Stadium",
+            "city": "Inglewood, California"
+          },
+          "home": {
+            "name": "Round of 16 5 Winner",
+            "code": "RD1",
+            "iso2": "",
+            "score": 0,
+            "scorers": []
+          },
+          "away": {
+            "name": "Round of 16 6 Winner",
+            "code": "RD1",
+            "iso2": "",
+            "score": 0,
+            "scorers": []
+          },
+          "odds": null,
+          "advancesTo": "m100"
+        },
+        {
+          "id": "ro16-9",
+          "matchNumber": null,
+          "status": "scheduled",
+          "date": "2026-07-11T21:00Z",
+          "venue": {
+            "name": "Hard Rock Stadium",
+            "city": "Miami Gardens, Florida"
+          },
+          "home": {
+            "name": "Round of 16 3 Winner",
+            "code": "RD1",
+            "iso2": "",
+            "score": 0,
+            "scorers": []
+          },
+          "away": {
+            "name": "Round of 16 4 Winner",
+            "code": "RD1",
+            "iso2": "",
+            "score": 0,
+            "scorers": []
+          },
+          "odds": null,
+          "advancesTo": null
+        },
+        {
+          "id": "ro16-10",
+          "matchNumber": null,
+          "status": "scheduled",
+          "date": "2026-07-12T01:00Z",
+          "venue": {
+            "name": "GEHA Field at Arrowhead Stadium",
+            "city": "Kansas City, Missouri"
+          },
+          "home": {
+            "name": "Round of 16 7 Winner",
+            "code": "RD1",
+            "iso2": "",
+            "score": 0,
+            "scorers": []
+          },
+          "away": {
+            "name": "Round of 16 8 Winner",
+            "code": "RD1",
+            "iso2": "",
+            "score": 0,
+            "scorers": []
+          },
+          "odds": null,
+          "advancesTo": null
+        }
       ]
     },
     {
       "id": "qf",
       "name": "Quarterfinals",
       "matches": [
-        { "id": "m97", "matchNumber": 97, "status": "scheduled", "date": null, "venue": null, "home": { "name": "Winner M89", "code": "TBD", "iso2": "" }, "away": { "name": "Winner M90", "code": "TBD", "iso2": "" }, "odds": null, "advancesTo": "m101" },
-        { "id": "m98", "matchNumber": 98, "status": "scheduled", "date": null, "venue": null, "home": { "name": "Winner M91", "code": "TBD", "iso2": "" }, "away": { "name": "Winner M92", "code": "TBD", "iso2": "" }, "odds": null, "advancesTo": "m101" },
-        { "id": "m99", "matchNumber": 99, "status": "scheduled", "date": null, "venue": null, "home": { "name": "Winner M93", "code": "TBD", "iso2": "" }, "away": { "name": "Winner M94", "code": "TBD", "iso2": "" }, "odds": null, "advancesTo": "m102" },
-        { "id": "m100", "matchNumber": 100, "status": "scheduled", "date": null, "venue": null, "home": { "name": "Winner M95", "code": "TBD", "iso2": "" }, "away": { "name": "Winner M96", "code": "TBD", "iso2": "" }, "odds": null, "advancesTo": "m102" }
+        {
+          "id": "m97",
+          "matchNumber": 97,
+          "status": "scheduled",
+          "date": "2026-07-14T19:00Z",
+          "venue": {
+            "name": "AT&T Stadium",
+            "city": "Arlington, Texas"
+          },
+          "home": {
+            "name": "Quarterfinal 1 Winner",
+            "code": "QFW",
+            "iso2": "",
+            "score": 0,
+            "scorers": []
+          },
+          "away": {
+            "name": "Quarterfinal 2 Winner",
+            "code": "QFW",
+            "iso2": "",
+            "score": 0,
+            "scorers": []
+          },
+          "odds": null,
+          "advancesTo": "m101"
+        },
+        {
+          "id": "m98",
+          "matchNumber": 98,
+          "status": "scheduled",
+          "date": "2026-07-15T19:00Z",
+          "venue": {
+            "name": "Mercedes-Benz Stadium",
+            "city": "Atlanta, Georgia"
+          },
+          "home": {
+            "name": "Quarterfinal 3 Winner",
+            "code": "QFW",
+            "iso2": "",
+            "score": 0,
+            "scorers": []
+          },
+          "away": {
+            "name": "Quarterfinal 4 Winner",
+            "code": "QW4",
+            "iso2": "",
+            "score": 0,
+            "scorers": []
+          },
+          "odds": null,
+          "advancesTo": "m101"
+        }
       ]
     },
     {
       "id": "sf",
       "name": "Semifinals",
       "matches": [
-        { "id": "m101", "matchNumber": 101, "status": "scheduled", "date": null, "venue": null, "home": { "name": "Winner M97", "code": "TBD", "iso2": "" }, "away": { "name": "Winner M98", "code": "TBD", "iso2": "" }, "odds": null, "advancesTo": "m104" },
-        { "id": "m102", "matchNumber": 102, "status": "scheduled", "date": null, "venue": null, "home": { "name": "Winner M99", "code": "TBD", "iso2": "" }, "away": { "name": "Winner M100", "code": "TBD", "iso2": "" }, "odds": null, "advancesTo": "m104" }
+        {
+          "id": "m101",
+          "matchNumber": 101,
+          "status": "scheduled",
+          "date": "2026-07-18T21:00Z",
+          "venue": {
+            "name": "Hard Rock Stadium",
+            "city": "Miami Gardens, Florida"
+          },
+          "home": {
+            "name": "Semifinal 1 Loser",
+            "code": "SF ",
+            "iso2": "",
+            "score": 0,
+            "scorers": []
+          },
+          "away": {
+            "name": "Semifinal 2 Loser",
+            "code": "SF ",
+            "iso2": "",
+            "score": 0,
+            "scorers": []
+          },
+          "odds": null,
+          "advancesTo": "m104"
+        },
+        {
+          "id": "m102",
+          "matchNumber": 102,
+          "status": "scheduled",
+          "date": "2026-07-19T19:00Z",
+          "venue": {
+            "name": "MetLife Stadium",
+            "city": "East Rutherford, New Jersey"
+          },
+          "home": {
+            "name": "Semifinal 1 Winner",
+            "code": "SFW",
+            "iso2": "",
+            "score": 0,
+            "scorers": []
+          },
+          "away": {
+            "name": "Semifinal 2 Winner",
+            "code": "SFW",
+            "iso2": "",
+            "score": 0,
+            "scorers": []
+          },
+          "odds": null,
+          "advancesTo": "m104"
+        }
       ]
     },
     {
       "id": "third",
       "name": "Third Place Play-off",
       "matches": [
-        { "id": "m103", "matchNumber": 103, "status": "scheduled", "date": null, "venue": null, "home": { "name": "Loser M101", "code": "TBD", "iso2": "" }, "away": { "name": "Loser M102", "code": "TBD", "iso2": "" }, "odds": null, "advancesTo": null }
+        {
+          "id": "m103",
+          "matchNumber": 103,
+          "status": "scheduled",
+          "date": null,
+          "venue": null,
+          "home": {
+            "name": "Loser M101",
+            "code": "TBD",
+            "iso2": ""
+          },
+          "away": {
+            "name": "Loser M102",
+            "code": "TBD",
+            "iso2": ""
+          },
+          "odds": null,
+          "advancesTo": null
+        }
       ]
     },
     {
       "id": "final",
       "name": "Final",
       "matches": [
-        { "id": "m104", "matchNumber": 104, "status": "scheduled", "date": null, "venue": null, "home": { "name": "Winner M101", "code": "TBD", "iso2": "" }, "away": { "name": "Winner M102", "code": "TBD", "iso2": "" }, "odds": null, "advancesTo": null }
+        {
+          "id": "m104",
+          "matchNumber": 104,
+          "status": "scheduled",
+          "date": null,
+          "venue": null,
+          "home": {
+            "name": "Winner M101",
+            "code": "TBD",
+            "iso2": ""
+          },
+          "away": {
+            "name": "Winner M102",
+            "code": "TBD",
+            "iso2": ""
+          },
+          "odds": null,
+          "advancesTo": null
+        }
       ]
     }
   ]
