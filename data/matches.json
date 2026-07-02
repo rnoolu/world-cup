@@ -1,6 +1,6 @@
 {
   "tournament": "FIFA World Cup 2026",
-  "lastUpdated": "2026-07-02T09:15:50Z",
+  "lastUpdated": "2026-07-02T09:19:00Z",
   "source": "ESPN public scoreboard API",
   "rounds": [
     {
@@ -816,8 +816,8 @@
           "advancesTo": "m101"
         },
         {
-          "id": "qf-3",
-          "matchNumber": null,
+          "id": "m99",
+          "matchNumber": 99,
           "status": "scheduled",
           "date": "2026-07-11T21:00Z",
           "venue": {
@@ -839,11 +839,11 @@
             "scorers": []
           },
           "odds": null,
-          "advancesTo": null
+          "advancesTo": "m102"
         },
         {
-          "id": "qf-4",
-          "matchNumber": null,
+          "id": "m100",
+          "matchNumber": 100,
           "status": "scheduled",
           "date": "2026-07-12T01:00Z",
           "venue": {
@@ -865,7 +865,7 @@
             "scorers": []
           },
           "odds": null,
-          "advancesTo": null
+          "advancesTo": "m102"
         }
       ]
     },
