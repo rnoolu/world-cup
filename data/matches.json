@@ -1,6 +1,6 @@
 {
   "tournament": "FIFA World Cup 2026",
-  "lastUpdated": "2026-07-02T23:35:41Z",
+  "lastUpdated": "2026-07-03T01:16:50Z",
   "source": "ESPN public scoreboard API",
   "rounds": [
     {
@@ -429,7 +429,7 @@
         {
           "id": "m84",
           "matchNumber": 84,
-          "status": "scheduled",
+          "status": "live",
           "date": "2026-07-02T23:00Z",
           "venue": {
             "name": "BMO Field",
@@ -440,14 +440,28 @@
             "code": "POR",
             "iso2": "PT",
             "score": 0,
-            "scorers": []
+            "scorers": [
+              {
+                "name": "Cristiano Ronaldo",
+                "minute": "68'"
+              },
+              {
+                "name": "Gonçalo Ramos",
+                "minute": "90'+4'"
+              }
+            ]
           },
           "away": {
             "name": "Croatia",
             "code": "CRO",
             "iso2": "HR",
             "score": 0,
-            "scorers": []
+            "scorers": [
+              {
+                "name": "Ivan Perisic",
+                "minute": "53'"
+              }
+            ]
           },
           "odds": null,
           "advancesTo": null
