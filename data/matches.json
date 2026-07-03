@@ -1,6 +1,6 @@
 {
   "tournament": "FIFA World Cup 2026",
-  "lastUpdated": "2026-07-03T21:01:57Z",
+  "lastUpdated": "2026-07-03T22:15:54Z",
   "source": "ESPN public scoreboard API",
   "rounds": [
     {
@@ -504,7 +504,7 @@
         {
           "id": "m86",
           "matchNumber": 86,
-          "status": "live",
+          "status": "finished",
           "date": "2026-07-03T18:00Z",
           "venue": {
             "name": "AT&T Stadium",
@@ -535,7 +535,7 @@
             ]
           },
           "odds": null,
-          "advancesTo": null
+          "advancesTo": "m95"
         },
         {
           "id": "m87",
@@ -768,9 +768,9 @@
             "scorers": []
           },
           "away": {
-            "name": "Round of 32 16 Winner",
-            "code": "RD3",
-            "iso2": "",
+            "name": "Egypt",
+            "code": "EGY",
+            "iso2": "EG",
             "score": 0,
             "scorers": []
           },
