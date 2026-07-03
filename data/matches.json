@@ -1,6 +1,6 @@
 {
   "tournament": "FIFA World Cup 2026",
-  "lastUpdated": "2026-07-03T01:16:50Z",
+  "lastUpdated": "2026-07-03T04:04:13Z",
   "source": "ESPN public scoreboard API",
   "rounds": [
     {
@@ -429,7 +429,7 @@
         {
           "id": "m84",
           "matchNumber": 84,
-          "status": "live",
+          "status": "finished",
           "date": "2026-07-02T23:00Z",
           "venue": {
             "name": "BMO Field",
@@ -439,7 +439,7 @@
             "name": "Portugal",
             "code": "POR",
             "iso2": "PT",
-            "score": 0,
+            "score": 2,
             "scorers": [
               {
                 "name": "Cristiano Ronaldo",
@@ -455,7 +455,7 @@
             "name": "Croatia",
             "code": "CRO",
             "iso2": "HR",
-            "score": 0,
+            "score": 1,
             "scorers": [
               {
                 "name": "Ivan Perisic",
@@ -464,12 +464,12 @@
             ]
           },
           "odds": null,
-          "advancesTo": null
+          "advancesTo": "m93"
         },
         {
           "id": "m85",
           "matchNumber": 85,
-          "status": "scheduled",
+          "status": "live",
           "date": "2026-07-03T03:00Z",
           "venue": {
             "name": "BC Place",
@@ -479,8 +479,13 @@
             "name": "Switzerland",
             "code": "SUI",
             "iso2": "CH",
-            "score": 0,
-            "scorers": []
+            "score": 1,
+            "scorers": [
+              {
+                "name": "Breel Embolo",
+                "minute": "10'"
+              }
+            ]
           },
           "away": {
             "name": "Algeria",
@@ -490,7 +495,7 @@
             "scorers": []
           },
           "odds": null,
-          "advancesTo": "m96"
+          "advancesTo": null
         },
         {
           "id": "m86",
@@ -516,7 +521,7 @@
             "scorers": []
           },
           "odds": null,
-          "advancesTo": "m95"
+          "advancesTo": null
         },
         {
           "id": "m87",
@@ -542,7 +547,7 @@
             "scorers": []
           },
           "odds": null,
-          "advancesTo": "m96"
+          "advancesTo": null
         },
         {
           "id": "m88",
@@ -568,7 +573,7 @@
             "scorers": []
           },
           "odds": null,
-          "advancesTo": "m95"
+          "advancesTo": null
         }
       ]
     },
@@ -690,9 +695,9 @@
             "city": "Arlington, Texas"
           },
           "home": {
-            "name": "Round of 32 11 Winner",
-            "code": "RD3",
-            "iso2": "",
+            "name": "Portugal",
+            "code": "POR",
+            "iso2": "PT",
             "score": 0,
             "scorers": []
           },
