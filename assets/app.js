@@ -1,10 +1,33 @@
 (() => {
   "use strict";
 
-  const DATA_URL = "data/matches.json";
-  const REFRESH_MS = 5 * 60 * 1000; // poll every 5 minutes for "live" updates
+  const REFRESH_MS = 2 * 60 * 1000; // poll every 2 minutes for "live" updates
   const MAIN_ROUND_IDS = ["ro32", "ro16", "qf", "sf", "final"];
   const SIDE_ROUND_IDS = ["third"];
+
+  // Where to read match data from. On the published GitHub Pages site we read
+  // straight from the repo's default branch via raw.githubusercontent.com,
+  // NOT from the Pages-served copy. Reason: the data-refresh Action commits new
+  // scores every few minutes, and each commit needs a Pages redeploy to become
+  // visible — but those redeploys transiently fail ("Deployment failed, try
+  // again later"), which would freeze scores on the live site for hours. Reading
+  // the raw file decouples live data from Pages deploy health entirely: the
+  // static shell only has to deploy once, and scores then update on their own.
+  function dataUrl() {
+    try {
+      const host = window.location.hostname;
+      if (host.endsWith("github.io")) {
+        const user = host.split(".")[0];
+        const repo = window.location.pathname.split("/").filter(Boolean)[0];
+        if (user && repo) {
+          return `https://raw.githubusercontent.com/${user}/${repo}/main/data/matches.json`;
+        }
+      }
+    } catch {
+      /* fall through to the local relative path (local dev / other hosts) */
+    }
+    return "data/matches.json";
+  }
 
   const FLAG_OVERRIDES = {
     "GB-ENG": "\u{1F3F4}\u{E0067}\u{E0062}\u{E0065}\u{E006E}\u{E0067}\u{E007F}",
@@ -92,6 +115,38 @@
       ${teamRowHTML(match.home, match.away, isFinished)}
       ${teamRowHTML(match.away, match.home, isFinished)}
     </div>`;
+  }
+
+  // Reorder each round's matches so the bracket tree lays out cleanly: the two
+  // matches that feed the same next-round match are placed adjacently, in the
+  // order their shared parent appears in the next round. Without this, cards sit
+  // in match-number order — but the real bracket pairing isn't sequential (e.g.
+  // m73 and m76 both feed m89), so the connector lines cross and look wrong.
+  // We derive the layout purely from advancesTo, working from the final backward
+  // so each round is ordered to match its already-ordered successor. With even
+  // pairing and CSS space-around, every parent then sits centered between its
+  // two children and the connectors form clean brackets.
+  function orderRoundsByBracket(data) {
+    const roundById = {};
+    data.rounds.forEach((r) => (roundById[r.id] = r));
+    for (let i = MAIN_ROUND_IDS.length - 2; i >= 0; i--) {
+      const cur = roundById[MAIN_ROUND_IDS[i]];
+      const nxt = roundById[MAIN_ROUND_IDS[i + 1]];
+      if (!cur || !nxt || cur.matches.length === 0 || nxt.matches.length === 0) continue;
+      const pos = {};
+      nxt.matches.forEach((m, idx) => (pos[m.id] = idx));
+      const BIG = Number.MAX_SAFE_INTEGER;
+      // Composite key: primary = parent's position in the next round, secondary
+      // = original index (keeps a parent's two feeders in stable order, and
+      // leaves unlinked matches at the end in their existing order).
+      cur.matches = cur.matches
+        .map((m, idx) => {
+          const p = m.advancesTo != null && pos[m.advancesTo] != null ? pos[m.advancesTo] : BIG;
+          return { m, key: p * 1000 + idx };
+        })
+        .sort((a, b) => a.key - b.key)
+        .map((x) => x.m);
+    }
   }
 
   function renderBracket(data) {
@@ -306,9 +361,12 @@
 
   async function loadData({ silent } = {}) {
     try {
-      const res = await fetch(`${DATA_URL}?_=${Date.now()}`, { cache: "no-store" });
+      const url = dataUrl();
+      const sep = url.includes("?") ? "&" : "?";
+      const res = await fetch(`${url}${sep}_=${Date.now()}`, { cache: "no-store" });
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
       const data = await res.json();
+      orderRoundsByBracket(data);
       latestData = data;
       if (!modalOpen) renderBracket(data);
       return data;

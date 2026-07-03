@@ -55,21 +55,31 @@ ROUND_NAMES = {
 }
 STATUS_RANK = {"finished": 2, "live": 1, "scheduled": 0}
 
-# Which round's matches feed into which. sf->final only (not sf->third):
-# the bracket UI only draws a connector for the winners' path; the third
-# place match is rendered as an unconnected side branch, same as before.
+# Consecutive rounds, current -> next, used for name-based advancesTo linking.
+# (sf -> final only; the third-place match is an unconnected side branch.)
 ADVANCE_CHAIN = [("ro32", "ro16"), ("ro16", "qf"), ("qf", "sf"), ("sf", "final")]
 
-# Matches ESPN's own placeholder team names, e.g. "Round of 32 11 Winner"
-# or "Semifinal 2 Loser" -- used to figure out which *slot* in the current
-# round feeds a given next-round match, before either side has been played.
-PLACEHOLDER_RE = re.compile(r"(round of 32|round of 16|quarterfinal|semifinal)\s+(\d+)\s+(winner|loser)", re.IGNORECASE)
-ROUND_LABEL_TO_ID = {
-    "round of 32": "ro32",
-    "round of 16": "ro16",
-    "quarterfinal": "qf",
-    "semifinal": "sf",
+# Fixed feeder structure for the *upper* bracket (Round of 16 onward). This is
+# the one part of the tree that is safe to hardcode: it was read directly from
+# ESPN's own placeholder labels, which for these rounds are positional and
+# consistent -- e.g. m97 is labelled "Round of 16 1 Winner vs Round of 16 2
+# Winner", and the 1st/2nd Round-of-16 matches by number are m89/m90. So:
+#   m97<-(m89,m90)  m98<-(m93,m94)  m99<-(m91,m92)  m100<-(m95,m96)
+#   m101<-(m97,m98) m102<-(m99,m100)                m104<-(m101,m102)
+# The Round-of-32 -> Round-of-16 mapping is deliberately NOT hardcoded here:
+# ESPN's "Round of 32 N Winner" ordinals are NOT positional (e.g. m93's open
+# slot is "Round of 32 11 Winner" even though the 11th RO32 match, m83, is
+# already filled into m93). Guessing it produced wrong/missing lines, so that
+# transition is resolved by real team names only (see link_advances_to).
+UPPER_BRACKET_ADVANCE = {
+    "m89": "m97", "m90": "m97", "m93": "m98", "m94": "m98",
+    "m91": "m99", "m92": "m99", "m95": "m100", "m96": "m100",
+    "m97": "m101", "m98": "m101", "m99": "m102", "m100": "m102",
+    "m101": "m104", "m102": "m104",
 }
+
+# A team name that is really a TBD placeholder, never matched by name.
+PLACEHOLDER_NAME_RE = re.compile(r"\b(winner|loser|tbd)\b", re.IGNORECASE)
 
 
 def build_canonical_skeleton():
@@ -384,52 +394,52 @@ def cap_to_slots(rid, matches):
 
 
 def link_advances_to(rounds_by_id):
-    """Sets each match's advancesTo to the next-round match its winner
-    actually plays in.
+    """Sets each match's advancesTo to the next-round match its winner plays in.
 
-    This used to come from a hardcoded pairing tree (match 1+2 of a round
-    feed match 1 of the next, etc.), which was a *guess* at the real FIFA
-    bracket seeding and turned out wrong -- e.g. the USA's real Round of 16
-    opponent (Belgium) didn't match the assumed pairing, so the connector
-    line pointed at the wrong match. This derives connections from actual
-    data instead, in two passes:
+    Two sources, in order of trust:
 
-    1. Name matching: if a team from the current round's match also
-       appears in a next-round match, that's a definite link -- reliable
-       whenever either match has a real (non-placeholder) team decided.
-    2. Placeholder-ordinal matching: ESPN's own TBD team names look like
-       "Round of 32 11 Winner", which tells us which *slot* in the current
-       round feeds that next-round match, even before it's been played.
-       This assumes ESPN's own ordinal numbering follows the same kickoff
-       order used elsewhere in this script.
+    1. Real team names. If a team in a current-round match also appears in a
+       next-round match, that match is where its winner goes -- unambiguous and
+       always correct once either feeder is decided. This is the ONLY source for
+       Round of 32 -> Round of 16, because ESPN's "Round of 32 N Winner"
+       ordinals there are not positional and guessing them drew wrong lines.
 
-    Whatever neither pass can resolve is left as None (no connector drawn)
-    rather than guessing -- a missing line is honest, a wrong one isn't.
+    2. Fixed upper-bracket structure (UPPER_BRACKET_ADVANCE) for Round of 16
+       onward, whose feeder pairing is stable and was verified against ESPN's
+       own positional labels. This keeps the upper bracket fully connected even
+       before those teams are known.
+
+    Anything unresolved is left None -- no connector is drawn rather than a
+    wrong one. Round-of-32 matches whose winners haven't been slotted into the
+    Round of 16 yet simply gain their line once those results come in.
     """
+    def is_real(name):
+        return bool(name) and not PLACEHOLDER_NAME_RE.search(name)
+
+    # Pass 1: link by real team names across every consecutive round.
     for cur_id, nxt_id in ADVANCE_CHAIN:
         cur_matches = rounds_by_id[cur_id]["matches"]
         nxt_matches = rounds_by_id[nxt_id]["matches"]
-
         for m in cur_matches:
             m["advancesTo"] = None
-            names = {m["home"]["name"].strip().lower(), m["away"]["name"].strip().lower()}
+            names = {n.strip().lower() for n in (m["home"]["name"], m["away"]["name"]) if is_real(n)}
+            if not names:
+                continue
             for nm in nxt_matches:
-                nxt_names = {nm["home"]["name"].strip().lower(), nm["away"]["name"].strip().lower()}
+                nxt_names = {n.strip().lower() for n in (nm["home"]["name"], nm["away"]["name"]) if is_real(n)}
                 if names & nxt_names:
                     m["advancesTo"] = nm["id"]
                     break
 
-        for nm in nxt_matches:
-            for side in (nm["home"], nm["away"]):
-                placeholder = PLACEHOLDER_RE.search(side.get("name", ""))
-                if not placeholder:
-                    continue
-                label, ordinal = placeholder.group(1).lower(), int(placeholder.group(2))
-                if ROUND_LABEL_TO_ID.get(label) != cur_id:
-                    continue
-                idx = ordinal - 1
-                if 0 <= idx < len(cur_matches) and not cur_matches[idx]["advancesTo"]:
-                    cur_matches[idx]["advancesTo"] = nm["id"]
+    # Pass 2: fill still-unresolved links in the upper bracket from the fixed
+    # verified structure (does not touch Round of 32 -> Round of 16).
+    ids_present = {m["id"] for r in rounds_by_id.values() for m in r["matches"]}
+    for r in rounds_by_id.values():
+        for m in r["matches"]:
+            if not m.get("advancesTo") and m["id"] in UPPER_BRACKET_ADVANCE:
+                target = UPPER_BRACKET_ADVANCE[m["id"]]
+                if target in ids_present:
+                    m["advancesTo"] = target
 
 
 def apply_odds_api_fallback(rounds_by_id, api_key):
