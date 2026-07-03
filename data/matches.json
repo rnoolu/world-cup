@@ -1,6 +1,6 @@
 {
   "tournament": "FIFA World Cup 2026",
-  "lastUpdated": "2026-07-03T05:12:27Z",
+  "lastUpdated": "2026-07-03T08:28:29Z",
   "source": "ESPN public scoreboard API",
   "rounds": [
     {
@@ -469,7 +469,7 @@
         {
           "id": "m85",
           "matchNumber": 85,
-          "status": "scheduled",
+          "status": "finished",
           "date": "2026-07-03T03:00Z",
           "venue": {
             "name": "BC Place",
@@ -479,8 +479,17 @@
             "name": "Switzerland",
             "code": "SUI",
             "iso2": "CH",
-            "score": 0,
-            "scorers": []
+            "score": 2,
+            "scorers": [
+              {
+                "name": "Breel Embolo",
+                "minute": "10'"
+              },
+              {
+                "name": "Dan Ndoye",
+                "minute": "46'"
+              }
+            ]
           },
           "away": {
             "name": "Algeria",
@@ -490,7 +499,7 @@
             "scorers": []
           },
           "odds": null,
-          "advancesTo": null
+          "advancesTo": "m96"
         },
         {
           "id": "m86",
@@ -768,9 +777,9 @@
             "city": "Vancouver"
           },
           "home": {
-            "name": "Round of 32 13 Winner",
-            "code": "RD3",
-            "iso2": "",
+            "name": "Switzerland",
+            "code": "SUI",
+            "iso2": "CH",
             "score": 0,
             "scorers": []
           },
