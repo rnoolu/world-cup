@@ -1,6 +1,6 @@
 {
   "tournament": "FIFA World Cup 2026",
-  "lastUpdated": "2026-07-03T04:04:13Z",
+  "lastUpdated": "2026-07-03T05:12:27Z",
   "source": "ESPN public scoreboard API",
   "rounds": [
     {
@@ -469,7 +469,7 @@
         {
           "id": "m85",
           "matchNumber": 85,
-          "status": "live",
+          "status": "scheduled",
           "date": "2026-07-03T03:00Z",
           "venue": {
             "name": "BC Place",
@@ -479,13 +479,8 @@
             "name": "Switzerland",
             "code": "SUI",
             "iso2": "CH",
-            "score": 1,
-            "scorers": [
-              {
-                "name": "Breel Embolo",
-                "minute": "10'"
-              }
-            ]
+            "score": 0,
+            "scorers": []
           },
           "away": {
             "name": "Algeria",
