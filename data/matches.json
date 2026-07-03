@@ -1,6 +1,6 @@
 {
   "tournament": "FIFA World Cup 2026",
-  "lastUpdated": "2026-07-03T22:15:54Z",
+  "lastUpdated": "2026-07-03T23:33:37Z",
   "source": "ESPN public scoreboard API",
   "rounds": [
     {
@@ -540,7 +540,7 @@
         {
           "id": "m87",
           "matchNumber": 87,
-          "status": "scheduled",
+          "status": "live",
           "date": "2026-07-03T22:00Z",
           "venue": {
             "name": "Hard Rock Stadium",
@@ -550,15 +550,25 @@
             "name": "Argentina",
             "code": "ARG",
             "iso2": "AR",
-            "score": 0,
-            "scorers": []
+            "score": 1,
+            "scorers": [
+              {
+                "name": "Lionel Messi",
+                "minute": "29'"
+              }
+            ]
           },
           "away": {
             "name": "Cape Verde",
             "code": "CPV",
             "iso2": "CV",
-            "score": 0,
-            "scorers": []
+            "score": 1,
+            "scorers": [
+              {
+                "name": "Deroy Duarte",
+                "minute": "59'"
+              }
+            ]
           },
           "odds": null,
           "advancesTo": null
