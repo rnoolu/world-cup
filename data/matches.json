@@ -1,6 +1,6 @@
 {
   "tournament": "FIFA World Cup 2026",
-  "lastUpdated": "2026-07-03T19:49:28Z",
+  "lastUpdated": "2026-07-03T21:01:57Z",
   "source": "ESPN public scoreboard API",
   "rounds": [
     {
@@ -504,7 +504,7 @@
         {
           "id": "m86",
           "matchNumber": 86,
-          "status": "scheduled",
+          "status": "live",
           "date": "2026-07-03T18:00Z",
           "venue": {
             "name": "AT&T Stadium",
@@ -514,15 +514,25 @@
             "name": "Australia",
             "code": "AUS",
             "iso2": "AU",
-            "score": 0,
-            "scorers": []
+            "score": 1,
+            "scorers": [
+              {
+                "name": "Mohamed Hany",
+                "minute": "55'"
+              }
+            ]
           },
           "away": {
             "name": "Egypt",
             "code": "EGY",
             "iso2": "EG",
-            "score": 0,
-            "scorers": []
+            "score": 1,
+            "scorers": [
+              {
+                "name": "Emam Ashour",
+                "minute": "13'"
+              }
+            ]
           },
           "odds": null,
           "advancesTo": null
