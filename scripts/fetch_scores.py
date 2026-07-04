@@ -26,9 +26,10 @@ import json
 import os
 import re
 import sys
+import urllib.error
 import urllib.parse
 import urllib.request
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 
 REPO_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 MATCHES_PATH = os.path.join(REPO_ROOT, "data", "matches.json")
@@ -455,51 +456,173 @@ def link_advances_to(rounds_by_id):
                     m["advancesTo"] = target
 
 
-def apply_odds_api_fallback(rounds_by_id, api_key):
-    """For matches still missing odds, try the-odds-api.com's soccer_fifa_world_cup market."""
-    if not api_key:
-        return
-    url = (
-        "https://api.the-odds-api.com/v4/sports/soccer_fifa_world_cup/odds/?"
-        + urllib.parse.urlencode(
-            {"apiKey": api_key, "regions": "eu", "markets": "h2h", "oddsFormat": "decimal"}
-        )
-    )
+# the-odds-api free tier is 500 requests/month. Refreshing odds at most once
+# every few hours (one credit per refresh) keeps well under that.
+ODDS_REFRESH_HOURS = 3
+ODDS_BASE = "https://api.the-odds-api.com/v4"
+
+
+def _odds_get(url, timeout=20):
+    req = urllib.request.Request(url, headers=HEADERS)
+    with urllib.request.urlopen(req, timeout=timeout) as resp:
+        return json.loads(resp.read().decode("utf-8"))
+
+
+def _read_http_error(exc):
     try:
-        events = http_get_json(url)
+        return exc.read().decode("utf-8")[:300]
+    except Exception:  # noqa: BLE001
+        return "(no response body)"
+
+
+def canon_team(name, country_lookup):
+    """Canonical token for a team name: its FIFA code if we know the country,
+    else the normalized name. Lets ESPN's 'United States' and the-odds-api's
+    'USA' resolve to the same token so odds attach to the right fixture."""
+    key = (name or "").strip().lower()
+    if not key:
+        return ""
+    info = country_lookup.get(key)
+    return info["fifa"] if info else key
+
+
+def pair_key(a, b, country_lookup):
+    """Order-independent key for a fixture, or None if either side is a TBD
+    placeholder (so we never attach odds to an undecided matchup)."""
+    if PLACEHOLDER_NAME_RE.search(a or "") or PLACEHOLDER_NAME_RE.search(b or ""):
+        return None
+    ca, cb = canon_team(a, country_lookup), canon_team(b, country_lookup)
+    if not ca or not cb or ca == cb:
+        return None
+    return frozenset((ca, cb))
+
+
+def fetch_odds(api_key, country_lookup):
+    """Fetch h2h odds from the-odds-api and return {pair_key: entry}, where
+    entry has per-team prices so home/away orientation is resolved by the
+    caller. Returns {} on any failure and logs exactly why."""
+    # Sports-list endpoint is free (no quota) and doubles as key validation +
+    # sport-key discovery, so we never hardcode a possibly-wrong sport key.
+    try:
+        sports = _odds_get(f"{ODDS_BASE}/sports/?apiKey={urllib.parse.quote(api_key)}&all=true")
+    except urllib.error.HTTPError as exc:
+        detail = _read_http_error(exc)
+        if exc.code == 401:
+            print(f"  ODDS: the-odds-api rejected the API key (HTTP 401). It said: {detail}")
+            print("  ODDS: check the ODDS_API_KEY repo secret — it must be a valid the-odds-api.com "
+                  "key with no surrounding spaces or trailing newline.")
+        else:
+            print(f"  ODDS: sports-list request failed (HTTP {exc.code}): {detail}")
+        return {}
     except Exception as exc:  # noqa: BLE001
-        print(f"  (odds-api fallback unavailable: {exc})")
-        return
+        print(f"  ODDS: could not reach the-odds-api: {exc}")
+        return {}
 
-    def norm(s):
-        return (s or "").strip().lower()
+    soccer = [s for s in sports if isinstance(s, dict) and "soccer" in s.get("key", "").lower()]
+    wc = [s for s in soccer if "world_cup" in s.get("key", "").lower() or "world cup" in s.get("title", "").lower()]
+    preferred = [s for s in wc if "fifa" in s.get("key", "").lower()] or wc
+    if not preferred:
+        active = [f"{s.get('key')} ({s.get('title')})" for s in soccer if s.get("active")]
+        print("  ODDS: API key is valid, but the-odds-api is not currently listing a FIFA World Cup "
+              "market — odds will appear once bookmakers price these fixtures.")
+        if active:
+            print(f"  ODDS: soccer markets active right now: {active[:10]}")
+        return {}
 
-    for rid, matches in rounds_by_id.items():
-        for m in matches:
-            if m.get("odds") or m["status"] == "finished":
-                continue
-            home_n, away_n = norm(m["home"]["name"]), norm(m["away"]["name"])
-            match_event = next(
-                (
-                    e
-                    for e in events
-                    if {norm(e.get("home_team")), norm(e.get("away_team"))} == {home_n, away_n}
-                ),
-                None,
+    index = {}
+    for sport in preferred:
+        sk = sport["key"]
+        try:
+            events = _odds_get(
+                f"{ODDS_BASE}/sports/{sk}/odds/?"
+                + urllib.parse.urlencode(
+                    {"apiKey": api_key, "regions": "eu", "markets": "h2h", "oddsFormat": "decimal"}
+                )
             )
-            if not match_event or not match_event.get("bookmakers"):
+        except urllib.error.HTTPError as exc:
+            print(f"  ODDS: odds request for {sk} failed (HTTP {exc.code}): {_read_http_error(exc)}")
+            continue
+        except Exception as exc:  # noqa: BLE001
+            print(f"  ODDS: odds request for {sk} failed: {exc}")
+            continue
+        for ev in events or []:
+            key = pair_key(ev.get("home_team"), ev.get("away_team"), country_lookup)
+            books = ev.get("bookmakers") or []
+            if not key or not books:
                 continue
-            book = match_event["bookmakers"][0]
-            h2h = next((mk for mk in book.get("markets", []) if mk["key"] == "h2h"), None)
+            h2h = next((mk for mk in books[0].get("markets", []) if mk.get("key") == "h2h"), None)
             if not h2h:
                 continue
-            prices = {norm(o["name"]): o["price"] for o in h2h.get("outcomes", [])}
+            prices = {canon_team(o.get("name"), country_lookup): o.get("price") for o in h2h.get("outcomes", [])}
+            index[key] = {"prices": prices, "draw": prices.get("draw"), "bookmaker": books[0].get("title", "the-odds-api")}
+
+    print(f"  ODDS: the-odds-api returned {len(index)} priced fixture(s).")
+    return index
+
+
+def handle_odds(rounds_by_id, current, prev_odds, prev_odds_updated, country_lookup):
+    """Attach betting odds to upcoming matches, respecting the free-tier quota
+    by refreshing at most every ODDS_REFRESH_HOURS and carrying cached odds
+    forward in between."""
+    api_key = (os.environ.get("ODDS_API_KEY") or "").strip()
+    now = datetime.now(timezone.utc)
+
+    def carry_forward():
+        n = 0
+        for r in rounds_by_id.values():
+            for m in r["matches"]:
+                if m.get("odds") or m["status"] == "finished":
+                    continue
+                k = pair_key(m["home"]["name"], m["away"]["name"], country_lookup)
+                if k and k in prev_odds:
+                    m["odds"] = prev_odds[k]
+                    n += 1
+        return n
+
+    if not api_key:
+        carry_forward()
+        return
+
+    due = True
+    if prev_odds_updated:
+        try:
+            last = datetime.strptime(prev_odds_updated, "%Y-%m-%dT%H:%M:%SZ").replace(tzinfo=timezone.utc)
+            due = (now - last) >= timedelta(hours=ODDS_REFRESH_HOURS)
+        except (ValueError, TypeError):
+            due = True
+    if not due:
+        n = carry_forward()
+        current["oddsUpdated"] = prev_odds_updated
+        print(f"  ODDS: within {ODDS_REFRESH_HOURS}h refresh window; carried {n} cached odds forward.")
+        return
+
+    index = fetch_odds(api_key, country_lookup)
+    if not index:
+        # Fetch failed or nothing priced yet: keep cached odds, and DON'T bump
+        # oddsUpdated so we retry on the next run.
+        carry_forward()
+        if prev_odds_updated:
+            current["oddsUpdated"] = prev_odds_updated
+        return
+
+    applied = 0
+    for r in rounds_by_id.values():
+        for m in r["matches"]:
+            if m["status"] == "finished":
+                continue
+            k = pair_key(m["home"]["name"], m["away"]["name"], country_lookup)
+            if not k or k not in index:
+                continue
+            entry = index[k]
             m["odds"] = {
-                "home": prices.get(home_n),
-                "away": prices.get(away_n),
-                "draw": prices.get("draw"),
-                "bookmaker": book.get("title", "the-odds-api"),
+                "home": entry["prices"].get(canon_team(m["home"]["name"], country_lookup)),
+                "away": entry["prices"].get(canon_team(m["away"]["name"], country_lookup)),
+                "draw": entry.get("draw"),
+                "bookmaker": entry["bookmaker"],
             }
+            applied += 1
+    current["oddsUpdated"] = now.strftime("%Y-%m-%dT%H:%M:%SZ")
+    print(f"  ODDS: applied odds to {applied} upcoming match(es).")
 
 
 def main():
@@ -512,6 +635,17 @@ def main():
         sys.exit(1)
 
     country_lookup = load_country_lookup()
+
+    # Capture existing odds (keyed by matchup) before we rebuild the rounds, so
+    # they can be carried forward between throttled odds refreshes.
+    prev_odds = {}
+    prev_odds_updated = current.get("oddsUpdated")
+    for r in current.get("rounds", []):
+        for m in r.get("matches", []):
+            if m.get("odds"):
+                k = pair_key(m["home"]["name"], m["away"]["name"], country_lookup)
+                if k:
+                    prev_odds[k] = m["odds"]
 
     try:
         events = fetch_espn_events()
@@ -543,8 +677,6 @@ def main():
         grouped[rid].sort(key=lambda m: m.get("date") or "")
         grouped[rid] = dedupe_matches(grouped[rid])
         grouped[rid] = cap_to_slots(rid, grouped[rid])
-
-    apply_odds_api_fallback(grouped, os.environ.get("ODDS_API_KEY"))
 
     rounds_by_id = {r["id"]: r for r in current["rounds"]}
     updated_any_round = False
@@ -593,6 +725,7 @@ def main():
         sys.exit(0)
 
     link_advances_to(rounds_by_id)
+    handle_odds(rounds_by_id, current, prev_odds, prev_odds_updated, country_lookup)
 
     current["rounds"] = [rounds_by_id[rid] for rid in ROUND_ORDER]
     current["lastUpdated"] = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")

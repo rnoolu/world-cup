@@ -44,9 +44,18 @@ deployment` job republishes the site automatically every time
 4. *(Optional, for odds)* Get a free API key at
    [the-odds-api.com](https://the-odds-api.com/) (500 requests/month free)
    and add it as a repository secret named `ODDS_API_KEY`
-   (Settings → Secrets and variables → Actions). Without it, the site still
-   works — the odds panel just shows "not available" until a match is
-   played.
+   (Settings → Secrets and variables → Actions). **Paste only the raw key —
+   no quotes, and make sure there's no trailing space or newline**, or the
+   API will reject it with `401 Unauthorized`. Without a key the site still
+   works — the odds panel just shows "not available".
+
+   Odds only appear for *upcoming* fixtures whose teams are already decided
+   (bookmakers don't price "Winner of Match 73"), and only while
+   the-odds-api is actively listing a FIFA World Cup market. To stay inside
+   the free tier, odds refresh at most once every few hours
+   (`ODDS_REFRESH_HOURS` in `scripts/fetch_scores.py`) and are cached in
+   between. The `Update knockout stage data` Action log prints exactly what
+   the odds step did (`ODDS: ...`) — check it there if odds aren't showing.
 
 Once merged, the site is live at `https://<your-username>.github.io/<repo>/`.
 
