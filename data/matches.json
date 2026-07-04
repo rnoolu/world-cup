@@ -1,6 +1,6 @@
 {
   "tournament": "FIFA World Cup 2026",
-  "lastUpdated": "2026-07-04T20:53:44Z",
+  "lastUpdated": "2026-07-04T21:56:44Z",
   "source": "ESPN public scoreboard API + the-odds-api.com",
   "rounds": [
     {
@@ -631,7 +631,7 @@
         {
           "id": "m89",
           "matchNumber": 89,
-          "status": "live",
+          "status": "finished",
           "date": "2026-07-04T17:00Z",
           "venue": {
             "name": "NRG Stadium",
@@ -648,7 +648,7 @@
             "name": "Morocco",
             "code": "MAR",
             "iso2": "MA",
-            "score": 1,
+            "score": 3,
             "scorers": [
               {
                 "name": "Azzedine Ounahi",
@@ -907,9 +907,9 @@
             "scorers": []
           },
           "away": {
-            "name": "Round of 16 2 Winner",
-            "code": "RD1",
-            "iso2": "",
+            "name": "Morocco",
+            "code": "MAR",
+            "iso2": "MA",
             "score": 0,
             "scorers": []
           },
