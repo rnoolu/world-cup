@@ -1,6 +1,6 @@
 {
   "tournament": "FIFA World Cup 2026",
-  "lastUpdated": "2026-07-04T17:15:43Z",
+  "lastUpdated": "2026-07-04T18:31:00Z",
   "source": "ESPN public scoreboard API + the-odds-api.com",
   "rounds": [
     {
@@ -631,7 +631,7 @@
         {
           "id": "m89",
           "matchNumber": 89,
-          "status": "scheduled",
+          "status": "live",
           "date": "2026-07-04T17:00Z",
           "venue": {
             "name": "NRG Stadium",
@@ -649,7 +649,12 @@
             "code": "MAR",
             "iso2": "MA",
             "score": 0,
-            "scorers": []
+            "scorers": [
+              {
+                "name": "Azzedine Ounahi",
+                "minute": "50'"
+              }
+            ]
           },
           "odds": {
             "home": 5.25,
