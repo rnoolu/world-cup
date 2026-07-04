@@ -1,6 +1,6 @@
 {
   "tournament": "FIFA World Cup 2026",
-  "lastUpdated": "2026-07-04T18:31:00Z",
+  "lastUpdated": "2026-07-04T19:53:19Z",
   "source": "ESPN public scoreboard API + the-odds-api.com",
   "rounds": [
     {
@@ -648,20 +648,23 @@
             "name": "Morocco",
             "code": "MAR",
             "iso2": "MA",
-            "score": 0,
+            "score": 2,
             "scorers": [
               {
                 "name": "Azzedine Ounahi",
                 "minute": "50'"
+              },
+              {
+                "name": "Azzedine Ounahi",
+                "minute": "82'"
+              },
+              {
+                "name": "Soufiane Rahimi",
+                "minute": "90'+8'"
               }
             ]
           },
-          "odds": {
-            "home": 5.25,
-            "away": 1.74,
-            "draw": 3.25,
-            "bookmaker": "PMU (FR)"
-          },
+          "odds": null,
           "advancesTo": "m97"
         },
         {
@@ -688,9 +691,9 @@
             "scorers": []
           },
           "odds": {
-            "home": 18.0,
-            "away": 1.18,
-            "draw": 7.5,
+            "home": 19.0,
+            "away": 1.2,
+            "draw": 7.0,
             "bookmaker": "Unibet (NL)"
           },
           "advancesTo": "m97"
@@ -751,7 +754,7 @@
           },
           "odds": {
             "home": 3.2,
-            "away": 2.5,
+            "away": 2.48,
             "draw": 3.2,
             "bookmaker": "Unibet (NL)"
           },
@@ -782,7 +785,7 @@
           },
           "odds": {
             "home": 4.0,
-            "away": 1.89,
+            "away": 1.88,
             "draw": 3.4,
             "bookmaker": "PMU (FR)"
           },
@@ -843,9 +846,9 @@
             "scorers": []
           },
           "odds": {
-            "home": 1.38,
+            "home": 1.36,
             "away": 11.0,
-            "draw": 4.8,
+            "draw": 4.75,
             "bookmaker": "Unibet (NL)"
           },
           "advancesTo": "m100"
@@ -874,8 +877,8 @@
             "scorers": []
           },
           "odds": {
-            "home": 3.55,
-            "away": 2.23,
+            "home": 3.6,
+            "away": 2.2,
             "draw": 3.1,
             "bookmaker": "LeoVegas (SE)"
           },
@@ -1116,5 +1119,5 @@
       ]
     }
   ],
-  "oddsUpdated": "2026-07-04T15:59:51Z"
+  "oddsUpdated": "2026-07-04T19:53:18Z"
 }
