@@ -181,14 +181,75 @@
     }
   }
 
+  const TWO_SIDED_MIN = 1100; // px; below this, use the single-column layout
+  let twoSidedActive = false;
+  let leftIdSet = new Set(); // match ids on the left half (connectors flow right→left)
+
+  function isWideLayout() {
+    return window.innerWidth >= TWO_SIDED_MIN;
+  }
+
+  function wireCards(container, data) {
+    if (!container) return;
+    container.querySelectorAll(".match-card").forEach((card) => {
+      card.addEventListener("click", () => openModal(card.dataset.matchId, data));
+      card.addEventListener("keydown", (e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          openModal(card.dataset.matchId, data);
+        }
+      });
+    });
+  }
+
+  function finishRender(data) {
+    wireCards(document.getElementById("bracket"), data);
+    wireCards(document.getElementById("side-branch"), data);
+
+    requestAnimationFrame(() => drawConnectors(data));
+
+    document.getElementById("last-updated").textContent = fmtUpdated(data.lastUpdated);
+    document.getElementById("empty-note").hidden = !!data.lastUpdated;
+    const anyLive = data.rounds.some((r) => r.matches.some((m) => m.status === "live"));
+    document.getElementById("live-indicator").hidden = !anyLive;
+
+    try {
+      const host = window.location.hostname;
+      if (host.endsWith("github.io")) {
+        const user = host.split(".")[0];
+        const repo = window.location.pathname.split("/").filter(Boolean)[0];
+        if (user && repo) {
+          document.getElementById("repo-link").href = `https://github.com/${user}/${repo}`;
+        }
+      }
+    } catch {
+      /* non-critical */
+    }
+  }
+
   function renderBracket(data) {
+    // Two-sided bracket on wide screens; single-column left-to-right on narrow.
     const byId = {};
-    data.rounds.forEach((r) => (byId[r.id] = r));
+    data.rounds.forEach((r) => r.matches.forEach((m) => (byId[m.id] = m)));
+    const skeletonPresent = byId.m104 && byId.m101 && byId.m102;
+    if (isWideLayout() && skeletonPresent) renderTwoSided(data, byId);
+    else renderSingle(data);
+    finishRender(data);
+  }
+
+  function renderSingle(data) {
+    twoSidedActive = false;
+    const byRound = {};
+    data.rounds.forEach((r) => (byRound[r.id] = r));
+
+    const scroll = document.getElementById("bracket-scroll");
+    if (scroll) scroll.classList.remove("wide");
 
     const bracketEl = document.getElementById("bracket");
+    bracketEl.className = "bracket";
     bracketEl.innerHTML = "";
     MAIN_ROUND_IDS.forEach((rid) => {
-      const round = byId[rid];
+      const round = byRound[rid];
       if (!round) return;
       const col = document.createElement("div");
       col.className = "round-col";
@@ -200,55 +261,58 @@
     const sideEl = document.getElementById("side-branch");
     sideEl.innerHTML = "";
     SIDE_ROUND_IDS.forEach((rid) => {
-      const round = byId[rid];
+      const round = byRound[rid];
       if (!round) return;
       const wrap = document.createElement("div");
       wrap.innerHTML = `<h2>${escapeHTML(round.name)}</h2>${round.matches.map(matchCardHTML).join("")}`;
       sideEl.appendChild(wrap);
     });
+  }
 
-    // wire clicks
-    bracketEl.querySelectorAll(".match-card").forEach((card) => {
-      card.addEventListener("click", () => openModal(card.dataset.matchId, data));
-      card.addEventListener("keydown", (e) => {
-        if (e.key === "Enter" || e.key === " ") {
-          e.preventDefault();
-          openModal(card.dataset.matchId, data);
-        }
-      });
+  function renderTwoSided(data, byId) {
+    twoSidedActive = true;
+    const roundName = {};
+    data.rounds.forEach((r) => (roundName[r.id] = r.name));
+
+    // Reverse feeder map, then expand each half down from its semifinal so the
+    // two matches feeding a slot always sit adjacent (clean bracket lines).
+    const childrenOf = {};
+    Object.values(byId).forEach((m) => {
+      if (m.advancesTo && byId[m.advancesTo]) (childrenOf[m.advancesTo] ||= []).push(m.id);
     });
-    sideEl.querySelectorAll(".match-card").forEach((card) => {
-      card.addEventListener("click", () => openModal(card.dataset.matchId, data));
-      card.addEventListener("keydown", (e) => {
-        if (e.key === "Enter" || e.key === " ") {
-          e.preventDefault();
-          openModal(card.dataset.matchId, data);
-        }
-      });
-    });
+    Object.values(childrenOf).forEach((a) =>
+      a.sort((x, y) => (byId[x].matchNumber || 0) - (byId[y].matchNumber || 0))
+    );
+    const layer = (seeds) => seeds.flatMap((s) => childrenOf[s] || []);
 
-    requestAnimationFrame(() => drawConnectors(data));
+    const sfL = ["m101"], qfL = layer(sfL), ro16L = layer(qfL), ro32L = layer(ro16L);
+    const sfR = ["m102"], qfR = layer(sfR), ro16R = layer(qfR), ro32R = layer(ro16R);
+    leftIdSet = new Set([...ro32L, ...ro16L, ...qfL, ...sfL]);
 
-    document.getElementById("last-updated").textContent = fmtUpdated(data.lastUpdated);
-    document.getElementById("empty-note").hidden = !!data.lastUpdated;
+    const col = (title, ids) =>
+      `<div class="round-col"><div class="round-title">${escapeHTML(title || "")}</div>` +
+      `<div class="round-matches">${ids.map((id) => matchCardHTML(byId[id])).join("")}</div></div>`;
 
-    const anyLive = data.rounds.some((r) => r.matches.some((m) => m.status === "live"));
-    document.getElementById("live-indicator").hidden = !anyLive;
+    const center =
+      `<div class="round-col round-col--center">` +
+      `<div class="center-final"><div class="round-title">${escapeHTML(roundName.final || "Final")}</div>` +
+      `<div class="round-matches">${matchCardHTML(byId.m104)}</div></div>` +
+      (byId.m103
+        ? `<div class="center-third"><div class="round-title">${escapeHTML(roundName.third || "Third place")}</div>` +
+          `<div class="round-matches">${matchCardHTML(byId.m103)}</div></div>`
+        : "") +
+      `</div>`;
 
-    // best-effort repo link for the footer
-    try {
-      const host = window.location.hostname;
-      if (host.endsWith("github.io")) {
-        const user = host.split(".")[0];
-        const path = window.location.pathname.split("/").filter(Boolean);
-        const repo = path[0];
-        if (user && repo) {
-          document.getElementById("repo-link").href = `https://github.com/${user}/${repo}`;
-        }
-      }
-    } catch {
-      /* non-critical */
-    }
+    const bracketEl = document.getElementById("bracket");
+    bracketEl.className = "bracket bracket--twosided";
+    bracketEl.innerHTML =
+      col(roundName.ro32, ro32L) + col(roundName.ro16, ro16L) + col(roundName.qf, qfL) + col(roundName.sf, sfL) +
+      center +
+      col(roundName.sf, sfR) + col(roundName.qf, qfR) + col(roundName.ro16, ro16R) + col(roundName.ro32, ro32R);
+
+    const scroll = document.getElementById("bracket-scroll");
+    if (scroll) scroll.classList.add("wide"); // let the wide two-sided bracket use the full page width
+    document.getElementById("side-branch").innerHTML = "";
   }
 
   const SVG_NS = "http://www.w3.org/2000/svg";
@@ -265,30 +329,33 @@
     svg.innerHTML = "";
 
     const cardsById = {};
-    bracket.querySelectorAll(".match-card").forEach((c) => {
-      cardsById[c.dataset.matchId] = c;
-    });
-    const bracketRect = bracket.getBoundingClientRect();
+    bracket.querySelectorAll(".match-card").forEach((c) => (cardsById[c.dataset.matchId] = c));
+    const R = bracket.getBoundingClientRect();
+
+    const drawLink = (m) => {
+      if (!m.advancesTo) return;
+      const src = cardsById[m.id];
+      const tgt = cardsById[m.advancesTo];
+      if (!src || !tgt) return;
+      const s = src.getBoundingClientRect();
+      const t = tgt.getBoundingClientRect();
+      // Left half (and the whole single-column layout) exits a card's right
+      // edge into the parent's left edge; the right half is mirrored.
+      const onLeft = !twoSidedActive || leftIdSet.has(m.id);
+      const x1 = (onLeft ? s.right : s.left) - R.left;
+      const x2 = (onLeft ? t.left : t.right) - R.left;
+      const y1 = s.top + s.height / 2 - R.top;
+      const y2 = t.top + t.height / 2 - R.top;
+      const xMid = x1 + (x2 - x1) / 2;
+      const path = document.createElementNS(SVG_NS, "path");
+      path.setAttribute("d", `M${x1},${y1} H${xMid} V${y2} H${x2}`);
+      path.setAttribute("class", "connector-line");
+      svg.appendChild(path);
+    };
 
     data.rounds.forEach((round) => {
-      if (!MAIN_ROUND_IDS.includes(round.id)) return;
-      round.matches.forEach((m) => {
-        if (!m.advancesTo) return;
-        const srcCard = cardsById[m.id];
-        const tgtCard = cardsById[m.advancesTo];
-        if (!srcCard || !tgtCard) return;
-        const srcRect = srcCard.getBoundingClientRect();
-        const tgtRect = tgtCard.getBoundingClientRect();
-        const x1 = srcRect.right - bracketRect.left;
-        const y1 = srcRect.top + srcRect.height / 2 - bracketRect.top;
-        const x2 = tgtRect.left - bracketRect.left;
-        const y2 = tgtRect.top + tgtRect.height / 2 - bracketRect.top;
-        const xMid = x1 + (x2 - x1) / 2;
-        const path = document.createElementNS(SVG_NS, "path");
-        path.setAttribute("d", `M${x1},${y1} H${xMid} V${y2} H${x2}`);
-        path.setAttribute("class", "connector-line");
-        svg.appendChild(path);
-      });
+      if (!twoSidedActive && !MAIN_ROUND_IDS.includes(round.id)) return;
+      round.matches.forEach(drawLink);
     });
   }
 
@@ -435,10 +502,18 @@
     setInterval(() => loadData({ silent: true }), REFRESH_MS);
 
     let resizeTimer;
+    let lastWide = isWideLayout();
     window.addEventListener("resize", () => {
       clearTimeout(resizeTimer);
       resizeTimer = setTimeout(() => {
-        if (latestData && !modalOpen) drawConnectors(latestData);
+        if (!latestData || modalOpen) return;
+        const wide = isWideLayout();
+        if (wide !== lastWide) {
+          lastWide = wide; // crossed the breakpoint: rebuild in the other layout
+          renderBracket(latestData);
+        } else {
+          drawConnectors(latestData); // same layout: just re-route the lines
+        }
       }, 150);
     });
   });

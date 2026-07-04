@@ -159,6 +159,24 @@ main {
   z-index: 1;
 }
 
+/* Two-sided bracket: the two halves feed inward to the Final in the centre. */
+.bracket-scroll.wide { max-width: 100%; } /* full page width so both halves are visible / reachable */
+.bracket--twosided { gap: 22px; }
+.bracket--twosided .round-col { min-width: 200px; }
+.round-col--center {
+  justify-content: center;
+  min-width: 210px;
+}
+.round-col--center .round-matches { flex: 0 0 auto; }
+.round-col--center .round-title { text-align: center; }
+.center-final .round-title { color: var(--accent); }
+.center-final .match-card {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 1px var(--accent) inset, var(--shadow);
+}
+.center-third { margin-top: 26px; }
+.center-third .round-title { font-size: 11px; }
+
 .round-title {
   font-size: 12.5px;
   font-weight: 700;
