@@ -518,7 +518,13 @@ def fetch_odds(api_key, country_lookup):
         print(f"  ODDS: could not reach the-odds-api: {exc}")
         return {}
 
-    soccer = [s for s in sports if isinstance(s, dict) and "soccer" in s.get("key", "").lower()]
+    # Exclude outright/futures markets (e.g. soccer_fifa_world_cup_winner) --
+    # those only support the "outrights" market, not head-to-head, and would
+    # 422 on our h2h request.
+    soccer = [
+        s for s in sports
+        if isinstance(s, dict) and "soccer" in s.get("key", "").lower() and not s.get("has_outrights")
+    ]
     wc = [s for s in soccer if "world_cup" in s.get("key", "").lower() or "world cup" in s.get("title", "").lower()]
     preferred = [s for s in wc if "fifa" in s.get("key", "").lower()] or wc
     if not preferred:
