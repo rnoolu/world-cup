@@ -1,7 +1,7 @@
 {
   "tournament": "FIFA World Cup 2026",
-  "lastUpdated": "2026-07-04T05:07:01Z",
-  "source": "ESPN public scoreboard API",
+  "lastUpdated": "2026-07-04T07:03:31Z",
+  "source": "ESPN public scoreboard API + the-odds-api.com",
   "rounds": [
     {
       "id": "ro32",
@@ -97,7 +97,8 @@
                 "name": "Kai Havertz",
                 "minute": "54'"
               }
-            ]
+            ],
+            "penalties": 3
           },
           "away": {
             "name": "Paraguay",
@@ -109,7 +110,8 @@
                 "name": "Julio Enciso",
                 "minute": "42'"
               }
-            ]
+            ],
+            "penalties": 4
           },
           "odds": null,
           "advancesTo": "m90"
@@ -133,7 +135,8 @@
                 "name": "Cody Gakpo",
                 "minute": "72'"
               }
-            ]
+            ],
+            "penalties": 2
           },
           "away": {
             "name": "Morocco",
@@ -145,7 +148,8 @@
                 "name": "Issa Diop",
                 "minute": "90'+1'"
               }
-            ]
+            ],
+            "penalties": 3
           },
           "odds": null,
           "advancesTo": "m89"
@@ -520,7 +524,8 @@
                 "name": "Mohamed Hany",
                 "minute": "55'"
               }
-            ]
+            ],
+            "penalties": 2
           },
           "away": {
             "name": "Egypt",
@@ -532,7 +537,8 @@
                 "name": "Emam Ashour",
                 "minute": "13'"
               }
-            ]
+            ],
+            "penalties": 4
           },
           "odds": null,
           "advancesTo": "m95"
