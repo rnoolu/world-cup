@@ -1,6 +1,6 @@
 {
   "tournament": "FIFA World Cup 2026",
-  "lastUpdated": "2026-07-04T21:56:44Z",
+  "lastUpdated": "2026-07-04T22:58:35Z",
   "source": "ESPN public scoreboard API + the-odds-api.com",
   "rounds": [
     {
@@ -670,7 +670,7 @@
         {
           "id": "m90",
           "matchNumber": 90,
-          "status": "scheduled",
+          "status": "live",
           "date": "2026-07-04T21:00Z",
           "venue": {
             "name": "Lincoln Financial Field",
@@ -688,12 +688,17 @@
             "code": "FRA",
             "iso2": "FR",
             "score": 0,
-            "scorers": []
+            "scorers": [
+              {
+                "name": "Kylian Mbappé",
+                "minute": "70'"
+              }
+            ]
           },
           "odds": {
-            "home": 19.0,
-            "away": 1.2,
-            "draw": 7.0,
+            "home": 201.0,
+            "away": 1.02,
+            "draw": 14.0,
             "bookmaker": "Unibet (NL)"
           },
           "advancesTo": "m97"
@@ -846,9 +851,9 @@
             "scorers": []
           },
           "odds": {
-            "home": 1.36,
-            "away": 11.0,
-            "draw": 4.75,
+            "home": 1.38,
+            "away": 10.5,
+            "draw": 4.9,
             "bookmaker": "Unibet (NL)"
           },
           "advancesTo": "m100"
@@ -877,9 +882,9 @@
             "scorers": []
           },
           "odds": {
-            "home": 3.6,
-            "away": 2.2,
-            "draw": 3.1,
+            "home": 3.55,
+            "away": 2.25,
+            "draw": 3.05,
             "bookmaker": "LeoVegas (SE)"
           },
           "advancesTo": "m100"
@@ -1119,5 +1124,5 @@
       ]
     }
   ],
-  "oddsUpdated": "2026-07-04T19:53:18Z"
+  "oddsUpdated": "2026-07-04T22:58:34Z"
 }
