@@ -70,30 +70,60 @@
     });
   }
 
+  function fmtShortDate(iso) {
+    if (!iso) return "";
+    const d = new Date(iso);
+    if (isNaN(d.getTime())) return "";
+    return d.toLocaleDateString(undefined, { month: "short", day: "numeric" });
+  }
+
+  // A match was decided on penalties if both teams carry a penalty tally.
+  function hasShootout(match) {
+    return (
+      match.home && match.away &&
+      match.home.penalties !== null && match.home.penalties !== undefined &&
+      match.away.penalties !== null && match.away.penalties !== undefined
+    );
+  }
+
+  // Which side won: "home" | "away" | null. Falls back to the penalty tally
+  // when regulation/extra-time scores are level (i.e. a shootout).
+  function winnerSide(match) {
+    const h = match.home, a = match.away;
+    if (h.score == null || a.score == null) return null;
+    if (h.score > a.score) return "home";
+    if (a.score > h.score) return "away";
+    if (hasShootout(match)) {
+      if (h.penalties > a.penalties) return "home";
+      if (a.penalties > h.penalties) return "away";
+    }
+    return null;
+  }
+
   function statusLabel(match) {
     if (match.status === "live") return "LIVE";
-    if (match.status === "finished") return "FT";
+    if (match.status === "finished") {
+      const d = fmtShortDate(match.date);
+      return "FT" + (hasShootout(match) ? " (pens)" : "") + (d ? " · " + d : "");
+    }
     return fmtDateTime(match.date);
   }
 
-  function teamRowHTML(team, opponentTeam, isFinished) {
+  function teamRowHTML(team, isFinished, isWinner, penScore) {
     const tbd = !team || !team.name || team.name === "TBD";
     const flag = flagEmoji(team && team.iso2);
     const code = (team && team.code) || "—";
     const name = (team && team.name) || "TBD";
     const hasScore = isFinished && team && team.score !== null && team.score !== undefined;
-    const isWinner =
-      isFinished &&
-      hasScore &&
-      opponentTeam &&
-      opponentTeam.score !== null &&
-      opponentTeam.score !== undefined &&
-      team.score > opponentTeam.score;
+    const pens =
+      hasScore && penScore !== null && penScore !== undefined
+        ? ` <span class="pens">(${penScore})</span>`
+        : "";
     return `<div class="team-row${tbd ? " tbd" : ""}${isWinner ? " winner" : ""}">
       <span class="flag">${flag}</span>
       <span class="code">${escapeHTML(code)}</span>
       <span class="name">${escapeHTML(name)}</span>
-      <span class="score">${hasScore ? team.score : ""}</span>
+      <span class="score">${hasScore ? team.score : ""}${pens}</span>
     </div>`;
   }
 
@@ -107,13 +137,15 @@
     const isFinished = match.status === "finished";
     const statusClass = match.status === "live" ? "live" : match.status === "finished" ? "finished" : "";
     const dot = match.status === "live" ? '<span class="live-dot"></span>' : "";
+    const win = isFinished ? winnerSide(match) : null;
+    const pens = hasShootout(match);
     return `<div class="match-card${match.isDemo ? " demo" : ""}" data-match-id="${match.id}" tabindex="0" role="button" aria-haspopup="dialog">
       <div class="match-status-bar">
         <span class="status-badge ${statusClass}">${dot}${statusLabel(match)}</span>
         <span>#${match.matchNumber}</span>
       </div>
-      ${teamRowHTML(match.home, match.away, isFinished)}
-      ${teamRowHTML(match.away, match.home, isFinished)}
+      ${teamRowHTML(match.home, isFinished, win === "home", pens ? match.home.penalties : null)}
+      ${teamRowHTML(match.away, isFinished, win === "away", pens ? match.away.penalties : null)}
     </div>`;
   }
 
@@ -299,15 +331,11 @@
     const awayScorers = (match.away.scorers || [])
       .map((s) => `<li>${escapeHTML(s.name)} <span style="color:var(--text-muted)">${escapeHTML(s.minute || "")}</span></li>`)
       .join("") || "<li>No goals</li>";
-    const pens =
-      match.home.penalties != null && match.away.penalties != null
-        ? `<p style="font-size:12.5px;color:var(--text-secondary);margin:6px 0 0;">Decided on penalties: ${match.home.penalties}–${match.away.penalties}</p>`
-        : "";
     return `<div class="section-title">Goalscorers</div>
       <div class="scorers-cols">
         <div><div class="col-head">${escapeHTML(match.home.code || match.home.name)}</div><ul>${homeScorers}</ul></div>
         <div><div class="col-head">${escapeHTML(match.away.code || match.away.name)}</div><ul>${awayScorers}</ul></div>
-      </div>${pens}`;
+      </div>`;
   }
 
   function openModal(matchId, data) {
@@ -320,28 +348,33 @@
     document.getElementById("modal-sub").textContent = `${round.name} · Match #${match.matchNumber}`;
 
     const body = document.getElementById("modal-body");
+    const win = isFinished ? winnerSide(match) : null;
+    const shootout = isFinished && hasShootout(match);
+    const penLine = shootout
+      ? `<div class="modal-pens">${match.home.penalties}–${match.away.penalties} on penalties</div>`
+      : "";
     const scoreOrVs = isFinished
-      ? `<div class="modal-score">${match.home.score ?? "-"} : ${match.away.score ?? "-"}</div>`
+      ? `<div class="modal-score-wrap"><div class="modal-score">${match.home.score ?? "-"} : ${match.away.score ?? "-"}</div>${penLine}</div>`
       : `<div class="modal-vs">VS</div>`;
 
     body.innerHTML = `
       ${match.isDemo ? `<div class="modal-demo-banner">This is sample data used to preview the interface. Real fixtures, results and odds populate automatically once the data-fetch workflow runs.</div>` : ""}
       <div class="modal-teams">
-        <div class="modal-team">
+        <div class="modal-team${win === "home" ? " winner" : ""}">
           <span class="flag">${flagEmoji(match.home.iso2)}</span>
           <div class="name">${escapeHTML(match.home.name)}</div>
           <div class="code">${escapeHTML(match.home.code || "")}</div>
         </div>
         ${scoreOrVs}
-        <div class="modal-team">
+        <div class="modal-team${win === "away" ? " winner" : ""}">
           <span class="flag">${flagEmoji(match.away.iso2)}</span>
           <div class="name">${escapeHTML(match.away.name)}</div>
           <div class="code">${escapeHTML(match.away.code || "")}</div>
         </div>
       </div>
       <dl class="info-grid">
-        <dt>Status</dt><dd>${match.status === "live" ? "Live now" : match.status === "finished" ? "Finished" : "Scheduled"}</dd>
-        <dt>Kickoff</dt><dd>${fmtDateTime(match.date)}</dd>
+        <dt>Status</dt><dd>${match.status === "live" ? "Live now" : match.status === "finished" ? (shootout ? "Finished (a.p.)" : "Finished") : "Scheduled"}</dd>
+        <dt>${isFinished ? "Played" : "Kickoff"}</dt><dd>${fmtDateTime(match.date)}</dd>
         <dt>Venue</dt><dd>${match.venue ? `${escapeHTML(match.venue.name)}${match.venue.city ? ", " + escapeHTML(match.venue.city) : ""}` : "TBD"}</dd>
       </dl>
       ${scorersHTML(match)}

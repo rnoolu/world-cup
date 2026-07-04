@@ -250,6 +250,8 @@ main {
   text-align: right;
 }
 .team-row.winner .name, .team-row.winner .score { color: var(--good); font-weight: 700; }
+.team-row .score .pens { font-size: 10.5px; font-weight: 600; color: var(--text-muted); }
+.team-row.winner .score .pens { color: var(--good); }
 
 .match-card.demo::after {
   content: "SAMPLE DATA";
@@ -357,12 +359,21 @@ main {
 .modal-team .flag { font-size: 40px; display: block; margin-bottom: 6px; }
 .modal-team .name { font-weight: 700; font-size: 14px; }
 .modal-team .code { font-size: 11.5px; color: var(--text-muted); }
+.modal-team.winner .name { color: var(--good); }
+.modal-team.winner .name::after { content: " ✓"; font-size: 12px; }
+.modal-score-wrap { padding: 0 6px; text-align: center; }
 .modal-score {
   font-size: 26px;
   font-weight: 700;
   font-variant-numeric: tabular-nums;
-  padding: 0 6px;
   white-space: nowrap;
+}
+.modal-pens {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  white-space: nowrap;
+  margin-top: 2px;
 }
 .modal-vs { font-size: 13px; color: var(--text-muted); font-weight: 700; }
 

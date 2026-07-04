@@ -297,10 +297,23 @@ def espn_event_to_match(event, country_lookup):
             score = int(float(score)) if score not in (None, "") else None
         except (ValueError, TypeError):
             score = None
-        return {"name": name, "code": code, "iso2": iso2, "score": score, "scorers": []}
+        # ESPN sets shootoutScore on both competitors when a match went to a
+        # penalty shootout; it is absent/empty otherwise.
+        pen = comp_team.get("shootoutScore")
+        try:
+            pen = int(float(pen)) if pen not in (None, "") else None
+        except (ValueError, TypeError):
+            pen = None
+        return {"name": name, "code": code, "iso2": iso2, "score": score, "penalties": pen, "scorers": []}
 
     home = team_block(home_c)
     away = team_block(away_c)
+
+    # Only surface penalties when BOTH sides have a tally (a real shootout);
+    # drop the key otherwise so the UI shows a normal result.
+    if home["penalties"] is None or away["penalties"] is None:
+        home.pop("penalties", None)
+        away.pop("penalties", None)
 
     if status in ("live", "finished"):
         home_scorers, away_scorers = fetch_scorers(
@@ -545,6 +558,19 @@ def main():
         new_matches = []
         for i, m in enumerate(found):
             slot = skeleton_matches[i] if i < len(skeleton_matches) else {}
+
+            def side_block(s):
+                block = {
+                    "name": s["name"],
+                    "code": s["code"],
+                    "iso2": s["iso2"],
+                    "score": s["score"],
+                    "scorers": s["scorers"],
+                }
+                if s.get("penalties") is not None:
+                    block["penalties"] = s["penalties"]
+                return block
+
             new_matches.append(
                 {
                     "id": slot.get("id", f"{rid}-{i + 1}"),
@@ -552,20 +578,8 @@ def main():
                     "status": m["status"],
                     "date": m["date"],
                     "venue": m["venue"],
-                    "home": {
-                        "name": m["home"]["name"],
-                        "code": m["home"]["code"],
-                        "iso2": m["home"]["iso2"],
-                        "score": m["home"]["score"],
-                        "scorers": m["home"]["scorers"],
-                    },
-                    "away": {
-                        "name": m["away"]["name"],
-                        "code": m["away"]["code"],
-                        "iso2": m["away"]["iso2"],
-                        "score": m["away"]["score"],
-                        "scorers": m["away"]["scorers"],
-                    },
+                    "home": side_block(m["home"]),
+                    "away": side_block(m["away"]),
                     "odds": m["odds"],
                     "advancesTo": None,
                 }
