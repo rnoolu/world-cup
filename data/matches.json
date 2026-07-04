@@ -1,6 +1,6 @@
 {
   "tournament": "FIFA World Cup 2026",
-  "lastUpdated": "2026-07-04T01:16:03Z",
+  "lastUpdated": "2026-07-04T05:07:01Z",
   "source": "ESPN public scoreboard API",
   "rounds": [
     {
@@ -540,7 +540,7 @@
         {
           "id": "m87",
           "matchNumber": 87,
-          "status": "live",
+          "status": "finished",
           "date": "2026-07-03T22:00Z",
           "venue": {
             "name": "Hard Rock Stadium",
@@ -550,7 +550,7 @@
             "name": "Argentina",
             "code": "ARG",
             "iso2": "AR",
-            "score": 0,
+            "score": 3,
             "scorers": [
               {
                 "name": "Lionel Messi",
@@ -570,7 +570,7 @@
             "name": "Cape Verde",
             "code": "CPV",
             "iso2": "CV",
-            "score": 0,
+            "score": 2,
             "scorers": [
               {
                 "name": "Deroy Duarte",
@@ -583,12 +583,12 @@
             ]
           },
           "odds": null,
-          "advancesTo": null
+          "advancesTo": "m95"
         },
         {
           "id": "m88",
           "matchNumber": 88,
-          "status": "scheduled",
+          "status": "finished",
           "date": "2026-07-04T01:30Z",
           "venue": {
             "name": "GEHA Field at Arrowhead Stadium",
@@ -598,8 +598,13 @@
             "name": "Colombia",
             "code": "COL",
             "iso2": "CO",
-            "score": 0,
-            "scorers": []
+            "score": 1,
+            "scorers": [
+              {
+                "name": "Jhon Arias",
+                "minute": "14'"
+              }
+            ]
           },
           "away": {
             "name": "Ghana",
@@ -609,7 +614,7 @@
             "scorers": []
           },
           "odds": null,
-          "advancesTo": null
+          "advancesTo": "m96"
         }
       ]
     },
@@ -783,9 +788,9 @@
             "city": "Atlanta, Georgia"
           },
           "home": {
-            "name": "Round of 32 14 Winner",
-            "code": "RD3",
-            "iso2": "",
+            "name": "Argentina",
+            "code": "ARG",
+            "iso2": "AR",
             "score": 0,
             "scorers": []
           },
@@ -816,9 +821,9 @@
             "scorers": []
           },
           "away": {
-            "name": "Round of 32 15 Winner",
-            "code": "RD3",
-            "iso2": "",
+            "name": "Colombia",
+            "code": "COL",
+            "iso2": "CO",
             "score": 0,
             "scorers": []
           },
