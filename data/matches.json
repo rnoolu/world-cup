@@ -1,6 +1,6 @@
 {
   "tournament": "FIFA World Cup 2026",
-  "lastUpdated": "2026-07-03T23:33:37Z",
+  "lastUpdated": "2026-07-04T01:16:03Z",
   "source": "ESPN public scoreboard API",
   "rounds": [
     {
@@ -550,11 +550,19 @@
             "name": "Argentina",
             "code": "ARG",
             "iso2": "AR",
-            "score": 1,
+            "score": 0,
             "scorers": [
               {
                 "name": "Lionel Messi",
                 "minute": "29'"
+              },
+              {
+                "name": "Lisandro Martínez",
+                "minute": "92'"
+              },
+              {
+                "name": "Diney Borges",
+                "minute": "111'"
               }
             ]
           },
@@ -562,11 +570,15 @@
             "name": "Cape Verde",
             "code": "CPV",
             "iso2": "CV",
-            "score": 1,
+            "score": 0,
             "scorers": [
               {
                 "name": "Deroy Duarte",
                 "minute": "59'"
+              },
+              {
+                "name": "Sidny Lopes Cabral",
+                "minute": "103'"
               }
             ]
           },
