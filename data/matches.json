@@ -1,6 +1,6 @@
 {
   "tournament": "FIFA World Cup 2026",
-  "lastUpdated": "2026-07-05T17:06:18Z",
+  "lastUpdated": "2026-07-05T18:15:34Z",
   "source": "ESPN public scoreboard API + the-odds-api.com",
   "rounds": [
     {
@@ -753,9 +753,9 @@
             "scorers": []
           },
           "odds": {
-            "home": 3.2,
-            "away": 2.48,
-            "draw": 3.25,
+            "home": 3.15,
+            "away": 2.55,
+            "draw": 3.15,
             "bookmaker": "Unibet (NL)"
           },
           "advancesTo": "m99"
@@ -784,8 +784,8 @@
             "scorers": []
           },
           "odds": {
-            "home": 4.0,
-            "away": 1.85,
+            "home": 3.95,
+            "away": 1.88,
             "draw": 3.5,
             "bookmaker": "PMU (FR)"
           },
@@ -815,9 +815,9 @@
             "scorers": []
           },
           "odds": {
-            "home": 2.65,
-            "away": 2.65,
-            "draw": 3.35,
+            "home": 2.55,
+            "away": 2.75,
+            "draw": 3.4,
             "bookmaker": "LeoVegas (SE)"
           },
           "advancesTo": "m98"
@@ -846,9 +846,9 @@
             "scorers": []
           },
           "odds": {
-            "home": 1.38,
+            "home": 1.36,
             "away": 10.5,
-            "draw": 4.9,
+            "draw": 5.0,
             "bookmaker": "Unibet (NL)"
           },
           "advancesTo": "m100"
@@ -877,9 +877,9 @@
             "scorers": []
           },
           "odds": {
-            "home": 3.55,
-            "away": 2.23,
-            "draw": 3.1,
+            "home": 3.6,
+            "away": 2.25,
+            "draw": 3.05,
             "bookmaker": "LeoVegas (SE)"
           },
           "advancesTo": "m100"
@@ -915,8 +915,8 @@
           },
           "odds": {
             "home": 1.54,
-            "away": 5.5,
-            "draw": 3.9,
+            "away": 6.0,
+            "draw": 3.95,
             "bookmaker": "Winamax (FR)"
           },
           "advancesTo": "m101"
@@ -1124,5 +1124,5 @@
       ]
     }
   ],
-  "oddsUpdated": "2026-07-05T14:39:50Z"
+  "oddsUpdated": "2026-07-05T18:15:33Z"
 }
