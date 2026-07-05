@@ -1,6 +1,6 @@
 {
   "tournament": "FIFA World Cup 2026",
-  "lastUpdated": "2026-07-04T22:58:35Z",
+  "lastUpdated": "2026-07-05T00:06:19Z",
   "source": "ESPN public scoreboard API + the-odds-api.com",
   "rounds": [
     {
@@ -670,7 +670,7 @@
         {
           "id": "m90",
           "matchNumber": 90,
-          "status": "live",
+          "status": "finished",
           "date": "2026-07-04T21:00Z",
           "venue": {
             "name": "Lincoln Financial Field",
@@ -687,7 +687,7 @@
             "name": "France",
             "code": "FRA",
             "iso2": "FR",
-            "score": 0,
+            "score": 1,
             "scorers": [
               {
                 "name": "Kylian Mbappé",
@@ -695,12 +695,7 @@
               }
             ]
           },
-          "odds": {
-            "home": 201.0,
-            "away": 1.02,
-            "draw": 14.0,
-            "bookmaker": "Unibet (NL)"
-          },
+          "odds": null,
           "advancesTo": "m97"
         },
         {
@@ -905,9 +900,9 @@
             "city": "Foxborough, Massachusetts"
           },
           "home": {
-            "name": "Round of 16 1 Winner",
-            "code": "RD1",
-            "iso2": "",
+            "name": "France",
+            "code": "FRA",
+            "iso2": "FR",
             "score": 0,
             "scorers": []
           },
