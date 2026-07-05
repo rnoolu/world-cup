@@ -1,6 +1,6 @@
 {
   "tournament": "FIFA World Cup 2026",
-  "lastUpdated": "2026-07-05T20:56:46Z",
+  "lastUpdated": "2026-07-05T22:03:21Z",
   "source": "ESPN public scoreboard API + the-odds-api.com",
   "rounds": [
     {
@@ -712,19 +712,33 @@
             "code": "BRA",
             "iso2": "BR",
             "score": 0,
-            "scorers": []
+            "scorers": [
+              {
+                "name": "Neymar",
+                "minute": "90'+10'"
+              }
+            ]
           },
           "away": {
             "name": "Norway",
             "code": "NOR",
             "iso2": "NO",
             "score": 0,
-            "scorers": []
+            "scorers": [
+              {
+                "name": "Erling Haaland",
+                "minute": "79'"
+              },
+              {
+                "name": "Erling Haaland",
+                "minute": "90'"
+              }
+            ]
           },
           "odds": {
-            "home": 1.75,
-            "away": 4.6,
-            "draw": 3.8,
+            "home": 120.0,
+            "away": 1.01,
+            "draw": 11.0,
             "bookmaker": "Tipico"
           },
           "advancesTo": "m99"
@@ -753,9 +767,9 @@
             "scorers": []
           },
           "odds": {
-            "home": 3.15,
+            "home": 3.2,
             "away": 2.55,
-            "draw": 3.15,
+            "draw": 3.1,
             "bookmaker": "Unibet (NL)"
           },
           "advancesTo": "m99"
@@ -784,9 +798,9 @@
             "scorers": []
           },
           "odds": {
-            "home": 3.95,
-            "away": 1.88,
-            "draw": 3.5,
+            "home": 4.0,
+            "away": 1.94,
+            "draw": 3.7,
             "bookmaker": "PMU (FR)"
           },
           "advancesTo": "m98"
@@ -815,8 +829,8 @@
             "scorers": []
           },
           "odds": {
-            "home": 2.55,
-            "away": 2.75,
+            "home": 2.65,
+            "away": 2.6,
             "draw": 3.4,
             "bookmaker": "LeoVegas (SE)"
           },
@@ -846,7 +860,7 @@
             "scorers": []
           },
           "odds": {
-            "home": 1.36,
+            "home": 1.38,
             "away": 10.5,
             "draw": 5.0,
             "bookmaker": "Unibet (NL)"
@@ -877,9 +891,9 @@
             "scorers": []
           },
           "odds": {
-            "home": 3.6,
-            "away": 2.25,
-            "draw": 3.05,
+            "home": 3.7,
+            "away": 2.2,
+            "draw": 3.1,
             "bookmaker": "LeoVegas (SE)"
           },
           "advancesTo": "m100"
@@ -1124,5 +1138,5 @@
       ]
     }
   ],
-  "oddsUpdated": "2026-07-05T18:15:33Z"
+  "oddsUpdated": "2026-07-05T22:03:20Z"
 }
