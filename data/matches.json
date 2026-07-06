@@ -1,6 +1,6 @@
 {
   "tournament": "FIFA World Cup 2026",
-  "lastUpdated": "2026-07-05T23:17:27Z",
+  "lastUpdated": "2026-07-06T01:14:15Z",
   "source": "ESPN public scoreboard API + the-odds-api.com",
   "rounds": [
     {
@@ -701,7 +701,7 @@
         {
           "id": "m91",
           "matchNumber": 91,
-          "status": "live",
+          "status": "finished",
           "date": "2026-07-05T20:00Z",
           "venue": {
             "name": "MetLife Stadium",
@@ -735,19 +735,14 @@
               }
             ]
           },
-          "odds": {
-            "home": 120.0,
-            "away": 1.01,
-            "draw": 11.0,
-            "bookmaker": "Tipico"
-          },
+          "odds": null,
           "advancesTo": "m99"
         },
         {
           "id": "m92",
           "matchNumber": 92,
-          "status": "scheduled",
-          "date": "2026-07-06T00:00Z",
+          "status": "live",
+          "date": "2026-07-06T01:00Z",
           "venue": {
             "name": "Estadio Banorte",
             "city": "Mexico City"
@@ -767,9 +762,9 @@
             "scorers": []
           },
           "odds": {
-            "home": 3.2,
-            "away": 2.55,
-            "draw": 3.1,
+            "home": 3.3,
+            "away": 2.5,
+            "draw": 2.63,
             "bookmaker": "Unibet (NL)"
           },
           "advancesTo": "m99"
@@ -800,7 +795,7 @@
           "odds": {
             "home": 4.0,
             "away": 1.94,
-            "draw": 3.7,
+            "draw": 3.65,
             "bookmaker": "PMU (FR)"
           },
           "advancesTo": "m98"
@@ -830,7 +825,7 @@
           },
           "odds": {
             "home": 2.65,
-            "away": 2.6,
+            "away": 2.63,
             "draw": 3.4,
             "bookmaker": "LeoVegas (SE)"
           },
@@ -928,9 +923,9 @@
             "scorers": []
           },
           "odds": {
-            "home": 1.54,
+            "home": 1.56,
             "away": 6.0,
-            "draw": 3.95,
+            "draw": 3.8,
             "bookmaker": "Winamax (FR)"
           },
           "advancesTo": "m101"
@@ -971,9 +966,9 @@
             "city": "Miami Gardens, Florida"
           },
           "home": {
-            "name": "Round of 16 3 Winner",
-            "code": "RD1",
-            "iso2": "",
+            "name": "Norway",
+            "code": "NOR",
+            "iso2": "NO",
             "score": 0,
             "scorers": []
           },
@@ -1138,5 +1133,5 @@
       ]
     }
   ],
-  "oddsUpdated": "2026-07-05T22:03:20Z"
+  "oddsUpdated": "2026-07-06T01:14:14Z"
 }
