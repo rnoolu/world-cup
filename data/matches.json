@@ -1,6 +1,6 @@
 {
   "tournament": "FIFA World Cup 2026",
-  "lastUpdated": "2026-07-06T22:02:45Z",
+  "lastUpdated": "2026-07-06T23:31:28Z",
   "source": "ESPN public scoreboard API + the-odds-api.com",
   "rounds": [
     {
@@ -789,7 +789,7 @@
         {
           "id": "m93",
           "matchNumber": 93,
-          "status": "scheduled",
+          "status": "finished",
           "date": "2026-07-06T19:00Z",
           "venue": {
             "name": "AT&T Stadium",
@@ -806,15 +806,15 @@
             "name": "Spain",
             "code": "ESP",
             "iso2": "ES",
-            "score": 0,
-            "scorers": []
+            "score": 1,
+            "scorers": [
+              {
+                "name": "Mikel Merino",
+                "minute": "90'+1'"
+              }
+            ]
           },
-          "odds": {
-            "home": 4.75,
-            "away": 2.75,
-            "draw": 1.97,
-            "bookmaker": "PMU (FR)"
-          },
+          "odds": null,
           "advancesTo": "m98"
         },
         {
@@ -957,9 +957,9 @@
             "city": "Inglewood, California"
           },
           "home": {
-            "name": "Round of 16 5 Winner",
-            "code": "RD1",
-            "iso2": "",
+            "name": "Spain",
+            "code": "ESP",
+            "iso2": "ES",
             "score": 0,
             "scorers": []
           },
