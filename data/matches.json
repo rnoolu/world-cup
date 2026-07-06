@@ -1,6 +1,6 @@
 {
   "tournament": "FIFA World Cup 2026",
-  "lastUpdated": "2026-07-06T01:14:15Z",
+  "lastUpdated": "2026-07-06T05:38:00Z",
   "source": "ESPN public scoreboard API + the-odds-api.com",
   "rounds": [
     {
@@ -741,7 +741,7 @@
         {
           "id": "m92",
           "matchNumber": 92,
-          "status": "live",
+          "status": "finished",
           "date": "2026-07-06T01:00Z",
           "venue": {
             "name": "Estadio Banorte",
@@ -751,22 +751,39 @@
             "name": "Mexico",
             "code": "MEX",
             "iso2": "MX",
-            "score": 0,
-            "scorers": []
+            "score": 2,
+            "scorers": [
+              {
+                "name": "Julián Quiñones",
+                "minute": "42'"
+              },
+              {
+                "name": "Raúl Jiménez",
+                "minute": "69'"
+              }
+            ]
           },
           "away": {
             "name": "England",
             "code": "ENG",
             "iso2": "GB-ENG",
-            "score": 0,
-            "scorers": []
+            "score": 3,
+            "scorers": [
+              {
+                "name": "Jude Bellingham",
+                "minute": "36'"
+              },
+              {
+                "name": "Jude Bellingham",
+                "minute": "38'"
+              },
+              {
+                "name": "Harry Kane",
+                "minute": "60'"
+              }
+            ]
           },
-          "odds": {
-            "home": 3.3,
-            "away": 2.5,
-            "draw": 2.63,
-            "bookmaker": "Unibet (NL)"
-          },
+          "odds": null,
           "advancesTo": "m99"
         },
         {
@@ -793,8 +810,8 @@
             "scorers": []
           },
           "odds": {
-            "home": 4.0,
-            "away": 1.94,
+            "home": 4.1,
+            "away": 1.93,
             "draw": 3.65,
             "bookmaker": "PMU (FR)"
           },
@@ -824,8 +841,8 @@
             "scorers": []
           },
           "odds": {
-            "home": 2.65,
-            "away": 2.63,
+            "home": 2.6,
+            "away": 2.7,
             "draw": 3.4,
             "bookmaker": "LeoVegas (SE)"
           },
@@ -855,7 +872,7 @@
             "scorers": []
           },
           "odds": {
-            "home": 1.38,
+            "home": 1.36,
             "away": 10.5,
             "draw": 5.0,
             "bookmaker": "Unibet (NL)"
@@ -886,7 +903,7 @@
             "scorers": []
           },
           "odds": {
-            "home": 3.7,
+            "home": 3.65,
             "away": 2.2,
             "draw": 3.1,
             "bookmaker": "LeoVegas (SE)"
@@ -973,13 +990,18 @@
             "scorers": []
           },
           "away": {
-            "name": "Round of 16 4 Winner",
-            "code": "RD1",
-            "iso2": "",
+            "name": "England",
+            "code": "ENG",
+            "iso2": "GB-ENG",
             "score": 0,
             "scorers": []
           },
-          "odds": null,
+          "odds": {
+            "home": 3.25,
+            "away": 1.8,
+            "draw": 3.15,
+            "bookmaker": "Winamax (FR)"
+          },
           "advancesTo": "m102"
         },
         {
@@ -1133,5 +1155,5 @@
       ]
     }
   ],
-  "oddsUpdated": "2026-07-06T01:14:14Z"
+  "oddsUpdated": "2026-07-06T05:37:59Z"
 }
