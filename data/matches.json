@@ -1,6 +1,6 @@
 {
   "tournament": "FIFA World Cup 2026",
-  "lastUpdated": "2026-07-06T20:33:33Z",
+  "lastUpdated": "2026-07-06T22:02:45Z",
   "source": "ESPN public scoreboard API + the-odds-api.com",
   "rounds": [
     {
@@ -789,7 +789,7 @@
         {
           "id": "m93",
           "matchNumber": 93,
-          "status": "live",
+          "status": "scheduled",
           "date": "2026-07-06T19:00Z",
           "venue": {
             "name": "AT&T Stadium",
