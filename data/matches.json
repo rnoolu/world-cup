@@ -1,6 +1,6 @@
 {
   "tournament": "FIFA World Cup 2026",
-  "lastUpdated": "2026-07-07T16:56:22Z",
+  "lastUpdated": "2026-07-07T19:02:40Z",
   "source": "ESPN public scoreboard API + the-odds-api.com",
   "rounds": [
     {
@@ -868,7 +868,7 @@
         {
           "id": "m95",
           "matchNumber": 95,
-          "status": "scheduled",
+          "status": "finished",
           "date": "2026-07-07T16:00Z",
           "venue": {
             "name": "Mercedes-Benz Stadium",
@@ -878,22 +878,39 @@
             "name": "Argentina",
             "code": "ARG",
             "iso2": "AR",
-            "score": 0,
-            "scorers": []
+            "score": 3,
+            "scorers": [
+              {
+                "name": "Cristian Romero",
+                "minute": "79'"
+              },
+              {
+                "name": "Lionel Messi",
+                "minute": "83'"
+              },
+              {
+                "name": "Enzo Fernández",
+                "minute": "90'+2'"
+              }
+            ]
           },
           "away": {
             "name": "Egypt",
             "code": "EGY",
             "iso2": "EG",
-            "score": 0,
-            "scorers": []
+            "score": 2,
+            "scorers": [
+              {
+                "name": "Yasser Ibrahim",
+                "minute": "15'"
+              },
+              {
+                "name": "Mostafa Zico",
+                "minute": "67'"
+              }
+            ]
           },
-          "odds": {
-            "home": 1.36,
-            "away": 12.0,
-            "draw": 4.9,
-            "bookmaker": "Unibet (NL)"
-          },
+          "odds": null,
           "advancesTo": "m100"
         },
         {
@@ -920,9 +937,9 @@
             "scorers": []
           },
           "odds": {
-            "home": 3.65,
-            "away": 2.23,
-            "draw": 3.05,
+            "home": 3.6,
+            "away": 2.28,
+            "draw": 3.0,
             "bookmaker": "LeoVegas (SE)"
           },
           "advancesTo": "m100"
@@ -959,7 +976,7 @@
           "odds": {
             "home": 1.56,
             "away": 6.25,
-            "draw": 3.85,
+            "draw": 3.9,
             "bookmaker": "Winamax (FR)"
           },
           "advancesTo": "m101"
@@ -989,7 +1006,7 @@
           },
           "odds": {
             "home": 1.63,
-            "away": 5.74,
+            "away": 5.75,
             "draw": 4.02,
             "bookmaker": "Pinnacle"
           },
@@ -1036,9 +1053,9 @@
             "city": "Kansas City, Missouri"
           },
           "home": {
-            "name": "Round of 16 7 Winner",
-            "code": "RD1",
-            "iso2": "",
+            "name": "Argentina",
+            "code": "ARG",
+            "iso2": "AR",
             "score": 0,
             "scorers": []
           },
@@ -1177,5 +1194,5 @@
       ]
     }
   ],
-  "oddsUpdated": "2026-07-07T14:26:33Z"
+  "oddsUpdated": "2026-07-07T19:02:39Z"
 }
