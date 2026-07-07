@@ -1,6 +1,6 @@
 {
   "tournament": "FIFA World Cup 2026",
-  "lastUpdated": "2026-07-07T22:12:28Z",
+  "lastUpdated": "2026-07-07T23:15:04Z",
   "source": "ESPN public scoreboard API + the-odds-api.com",
   "rounds": [
     {
@@ -916,7 +916,7 @@
         {
           "id": "m96",
           "matchNumber": 96,
-          "status": "live",
+          "status": "finished",
           "date": "2026-07-07T20:00Z",
           "venue": {
             "name": "BC Place",
@@ -927,21 +927,18 @@
             "code": "SUI",
             "iso2": "CH",
             "score": 0,
-            "scorers": []
+            "scorers": [],
+            "penalties": 4
           },
           "away": {
             "name": "Colombia",
             "code": "COL",
             "iso2": "CO",
             "score": 0,
-            "scorers": []
+            "scorers": [],
+            "penalties": 3
           },
-          "odds": {
-            "home": 6.0,
-            "away": 4.3,
-            "draw": 1.45,
-            "bookmaker": "Tipico"
-          },
+          "odds": null,
           "advancesTo": "m100"
         }
       ]
@@ -1060,9 +1057,9 @@
             "scorers": []
           },
           "away": {
-            "name": "Round of 16 8 Winner",
-            "code": "RD1",
-            "iso2": "",
+            "name": "Switzerland",
+            "code": "SUI",
+            "iso2": "CH",
             "score": 0,
             "scorers": []
           },
