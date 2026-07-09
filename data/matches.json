@@ -1,6 +1,6 @@
 {
   "tournament": "FIFA World Cup 2026",
-  "lastUpdated": "2026-07-09T21:06:50Z",
+  "lastUpdated": "2026-07-09T22:42:50Z",
   "source": "ESPN public scoreboard API + the-odds-api.com",
   "rounds": [
     {
@@ -950,7 +950,7 @@
         {
           "id": "m97",
           "matchNumber": 97,
-          "status": "scheduled",
+          "status": "live",
           "date": "2026-07-09T20:00Z",
           "venue": {
             "name": "Gillette Stadium",
@@ -961,7 +961,16 @@
             "code": "FRA",
             "iso2": "FR",
             "score": 0,
-            "scorers": []
+            "scorers": [
+              {
+                "name": "Kylian Mbappé",
+                "minute": "60'"
+              },
+              {
+                "name": "Ousmane Dembélé",
+                "minute": "66'"
+              }
+            ]
           },
           "away": {
             "name": "Morocco",
@@ -970,12 +979,7 @@
             "score": 0,
             "scorers": []
           },
-          "odds": {
-            "home": 1.6,
-            "away": 6.5,
-            "draw": 3.9,
-            "bookmaker": "Winamax (FR)"
-          },
+          "odds": null,
           "advancesTo": "m101"
         },
         {
@@ -1003,7 +1007,7 @@
           },
           "odds": {
             "home": 1.65,
-            "away": 5.49,
+            "away": 5.53,
             "draw": 3.99,
             "bookmaker": "Pinnacle"
           },
@@ -1064,8 +1068,8 @@
             "scorers": []
           },
           "odds": {
-            "home": 1.71,
-            "away": 6.0,
+            "home": 1.7,
+            "away": 6.25,
             "draw": 3.65,
             "bookmaker": "Unibet (NL)"
           },
@@ -1196,5 +1200,5 @@
       ]
     }
   ],
-  "oddsUpdated": "2026-07-09T19:41:18Z"
+  "oddsUpdated": "2026-07-09T22:42:50Z"
 }
