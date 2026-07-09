@@ -1,6 +1,6 @@
 {
   "tournament": "FIFA World Cup 2026",
-  "lastUpdated": "2026-07-09T22:42:50Z",
+  "lastUpdated": "2026-07-09T23:51:34Z",
   "source": "ESPN public scoreboard API + the-odds-api.com",
   "rounds": [
     {
@@ -950,7 +950,7 @@
         {
           "id": "m97",
           "matchNumber": 97,
-          "status": "live",
+          "status": "finished",
           "date": "2026-07-09T20:00Z",
           "venue": {
             "name": "Gillette Stadium",
@@ -960,7 +960,7 @@
             "name": "France",
             "code": "FRA",
             "iso2": "FR",
-            "score": 0,
+            "score": 2,
             "scorers": [
               {
                 "name": "Kylian Mbappé",
@@ -1091,9 +1091,9 @@
             "city": "Arlington, Texas"
           },
           "home": {
-            "name": "Quarterfinal 1 Winner",
-            "code": "QFW",
-            "iso2": "",
+            "name": "France",
+            "code": "FRA",
+            "iso2": "FR",
             "score": 0,
             "scorers": []
           },
