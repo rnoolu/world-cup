@@ -1,6 +1,6 @@
 {
   "tournament": "FIFA World Cup 2026",
-  "lastUpdated": "2026-07-10T21:41:12Z",
+  "lastUpdated": "2026-07-10T22:40:39Z",
   "source": "ESPN public scoreboard API + the-odds-api.com",
   "rounds": [
     {
@@ -985,7 +985,7 @@
         {
           "id": "m98",
           "matchNumber": 98,
-          "status": "live",
+          "status": "finished",
           "date": "2026-07-10T19:00Z",
           "venue": {
             "name": "SoFi Stadium",
@@ -995,7 +995,7 @@
             "name": "Spain",
             "code": "ESP",
             "iso2": "ES",
-            "score": 1,
+            "score": 2,
             "scorers": [
               {
                 "name": "Fabián Ruiz",
@@ -1019,12 +1019,7 @@
               }
             ]
           },
-          "odds": {
-            "home": 1.67,
-            "away": 5.7,
-            "draw": 3.95,
-            "bookmaker": "Pinnacle"
-          },
+          "odds": null,
           "advancesTo": "m101"
         },
         {
@@ -1083,8 +1078,8 @@
           },
           "odds": {
             "home": 1.68,
-            "away": 6.25,
-            "draw": 3.7,
+            "away": 6.4,
+            "draw": 3.65,
             "bookmaker": "Unibet (NL)"
           },
           "advancesTo": "m102"
@@ -1112,13 +1107,18 @@
             "scorers": []
           },
           "away": {
-            "name": "Quarterfinal 2 Winner",
-            "code": "QFW",
-            "iso2": "",
+            "name": "Spain",
+            "code": "ESP",
+            "iso2": "ES",
             "score": 0,
             "scorers": []
           },
-          "odds": null,
+          "odds": {
+            "home": 2.3,
+            "away": 2.9,
+            "draw": 3.3,
+            "bookmaker": "William Hill"
+          },
           "advancesTo": "m104"
         },
         {
@@ -1214,5 +1214,5 @@
       ]
     }
   ],
-  "oddsUpdated": "2026-07-10T18:58:27Z"
+  "oddsUpdated": "2026-07-10T22:40:39Z"
 }
