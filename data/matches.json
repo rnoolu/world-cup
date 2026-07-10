@@ -1,6 +1,6 @@
 {
   "tournament": "FIFA World Cup 2026",
-  "lastUpdated": "2026-07-10T20:37:05Z",
+  "lastUpdated": "2026-07-10T21:41:12Z",
   "source": "ESPN public scoreboard API + the-odds-api.com",
   "rounds": [
     {
@@ -985,7 +985,7 @@
         {
           "id": "m98",
           "matchNumber": 98,
-          "status": "scheduled",
+          "status": "live",
           "date": "2026-07-10T19:00Z",
           "venue": {
             "name": "SoFi Stadium",
@@ -995,15 +995,29 @@
             "name": "Spain",
             "code": "ESP",
             "iso2": "ES",
-            "score": 0,
-            "scorers": []
+            "score": 1,
+            "scorers": [
+              {
+                "name": "Fabián Ruiz",
+                "minute": "30'"
+              },
+              {
+                "name": "Mikel Merino",
+                "minute": "88'"
+              }
+            ]
           },
           "away": {
             "name": "Belgium",
             "code": "BEL",
             "iso2": "BE",
-            "score": 0,
-            "scorers": []
+            "score": 1,
+            "scorers": [
+              {
+                "name": "Charles De Ketelaere",
+                "minute": "41'"
+              }
+            ]
           },
           "odds": {
             "home": 1.67,
