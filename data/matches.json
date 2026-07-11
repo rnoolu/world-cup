@@ -1,6 +1,6 @@
 {
   "tournament": "FIFA World Cup 2026",
-  "lastUpdated": "2026-07-11T01:07:43Z",
+  "lastUpdated": "2026-07-11T04:27:13Z",
   "source": "ESPN public scoreboard API + the-odds-api.com",
   "rounds": [
     {
@@ -1046,8 +1046,8 @@
             "scorers": []
           },
           "odds": {
-            "home": 3.95,
-            "away": 1.86,
+            "home": 3.85,
+            "away": 1.88,
             "draw": 3.65,
             "bookmaker": "Winamax (FR)"
           },
@@ -1078,8 +1078,8 @@
           },
           "odds": {
             "home": 1.68,
-            "away": 6.4,
-            "draw": 3.65,
+            "away": 6.25,
+            "draw": 3.6,
             "bookmaker": "Unibet (NL)"
           },
           "advancesTo": "m102"
@@ -1115,8 +1115,8 @@
           },
           "odds": {
             "home": 2.3,
-            "away": 2.9,
-            "draw": 3.3,
+            "away": 3.0,
+            "draw": 3.1,
             "bookmaker": "William Hill"
           },
           "advancesTo": "m104"
@@ -1214,5 +1214,5 @@
       ]
     }
   ],
-  "oddsUpdated": "2026-07-10T22:40:39Z"
+  "oddsUpdated": "2026-07-11T04:27:11Z"
 }
