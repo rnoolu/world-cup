@@ -1,6 +1,6 @@
 {
   "tournament": "FIFA World Cup 2026",
-  "lastUpdated": "2026-07-11T21:05:17Z",
+  "lastUpdated": "2026-07-11T22:07:16Z",
   "source": "ESPN public scoreboard API + the-odds-api.com",
   "rounds": [
     {
@@ -1025,7 +1025,7 @@
         {
           "id": "m99",
           "matchNumber": 99,
-          "status": "scheduled",
+          "status": "live",
           "date": "2026-07-11T21:00Z",
           "venue": {
             "name": "Hard Rock Stadium",
@@ -1036,19 +1036,29 @@
             "code": "NOR",
             "iso2": "NO",
             "score": 0,
-            "scorers": []
+            "scorers": [
+              {
+                "name": "Andreas Schjelderup",
+                "minute": "36'"
+              }
+            ]
           },
           "away": {
             "name": "England",
             "code": "ENG",
             "iso2": "GB-ENG",
             "score": 0,
-            "scorers": []
+            "scorers": [
+              {
+                "name": "Jude Bellingham",
+                "minute": "45'+2'"
+              }
+            ]
           },
           "odds": {
-            "home": 3.75,
-            "away": 1.9,
-            "draw": 3.8,
+            "home": 4.7,
+            "away": 1.94,
+            "draw": 2.55,
             "bookmaker": "Winamax (FR)"
           },
           "advancesTo": "m102"
@@ -1077,9 +1087,9 @@
             "scorers": []
           },
           "odds": {
-            "home": 1.72,
-            "away": 6.0,
-            "draw": 3.6,
+            "home": 1.7,
+            "away": 6.25,
+            "draw": 3.65,
             "bookmaker": "Unibet (NL)"
           },
           "advancesTo": "m102"
@@ -1214,5 +1224,5 @@
       ]
     }
   ],
-  "oddsUpdated": "2026-07-11T18:58:00Z"
+  "oddsUpdated": "2026-07-11T22:07:15Z"
 }
