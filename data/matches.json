@@ -1,6 +1,6 @@
 {
   "tournament": "FIFA World Cup 2026",
-  "lastUpdated": "2026-07-12T18:37:37Z",
+  "lastUpdated": "2026-07-12T19:50:01Z",
   "source": "ESPN public scoreboard API + the-odds-api.com",
   "rounds": [
     {
@@ -1167,8 +1167,8 @@
             "scorers": []
           },
           "odds": {
-            "home": 2.69,
-            "away": 3.11,
+            "home": 2.63,
+            "away": 3.19,
             "draw": 2.95,
             "bookmaker": "Pinnacle"
           },
@@ -1241,5 +1241,5 @@
       ]
     }
   ],
-  "oddsUpdated": "2026-07-12T16:27:05Z"
+  "oddsUpdated": "2026-07-12T19:50:01Z"
 }
