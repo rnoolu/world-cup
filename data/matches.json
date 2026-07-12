@@ -1,6 +1,6 @@
 {
   "tournament": "FIFA World Cup 2026",
-  "lastUpdated": "2026-07-11T23:10:19Z",
+  "lastUpdated": "2026-07-12T00:10:28Z",
   "source": "ESPN public scoreboard API + the-odds-api.com",
   "rounds": [
     {
@@ -1025,7 +1025,7 @@
         {
           "id": "m99",
           "matchNumber": 99,
-          "status": "live",
+          "status": "finished",
           "date": "2026-07-11T21:00Z",
           "venue": {
             "name": "Hard Rock Stadium",
@@ -1047,20 +1047,19 @@
             "name": "England",
             "code": "ENG",
             "iso2": "GB-ENG",
-            "score": 1,
+            "score": 2,
             "scorers": [
               {
                 "name": "Jude Bellingham",
                 "minute": "45'+2'"
+              },
+              {
+                "name": "Jude Bellingham",
+                "minute": "93'"
               }
             ]
           },
-          "odds": {
-            "home": 4.7,
-            "away": 1.94,
-            "draw": 2.55,
-            "bookmaker": "Winamax (FR)"
-          },
+          "odds": null,
           "advancesTo": "m102"
         },
         {
@@ -1141,9 +1140,9 @@
             "city": "Atlanta, Georgia"
           },
           "home": {
-            "name": "Quarterfinal 3 Winner",
-            "code": "QFW",
-            "iso2": "",
+            "name": "England",
+            "code": "ENG",
+            "iso2": "GB-ENG",
             "score": 0,
             "scorers": []
           },
