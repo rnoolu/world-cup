@@ -1,6 +1,6 @@
 {
   "tournament": "FIFA World Cup 2026",
-  "lastUpdated": "2026-07-12T03:56:27Z",
+  "lastUpdated": "2026-07-12T06:33:00Z",
   "source": "ESPN public scoreboard API + the-odds-api.com",
   "rounds": [
     {
@@ -1065,7 +1065,7 @@
         {
           "id": "m100",
           "matchNumber": 100,
-          "status": "scheduled",
+          "status": "finished",
           "date": "2026-07-12T01:00Z",
           "venue": {
             "name": "GEHA Field at Arrowhead Stadium",
@@ -1075,15 +1075,33 @@
             "name": "Argentina",
             "code": "ARG",
             "iso2": "AR",
-            "score": 0,
-            "scorers": []
+            "score": 3,
+            "scorers": [
+              {
+                "name": "Alexis Mac Allister",
+                "minute": "10'"
+              },
+              {
+                "name": "Julián Álvarez",
+                "minute": "112'"
+              },
+              {
+                "name": "Lautaro Martínez",
+                "minute": "120'+1'"
+              }
+            ]
           },
           "away": {
             "name": "Switzerland",
             "code": "SUI",
             "iso2": "CH",
-            "score": 0,
-            "scorers": []
+            "score": 1,
+            "scorers": [
+              {
+                "name": "Dan Ndoye",
+                "minute": "67'"
+              }
+            ]
           },
           "odds": null,
           "advancesTo": "m102"
@@ -1142,9 +1160,9 @@
             "scorers": []
           },
           "away": {
-            "name": "Quarterfinal 4 Winner",
-            "code": "QW4",
-            "iso2": "",
+            "name": "Argentina",
+            "code": "ARG",
+            "iso2": "AR",
             "score": 0,
             "scorers": []
           },
