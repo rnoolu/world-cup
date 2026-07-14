@@ -1,6 +1,6 @@
 {
   "tournament": "FIFA World Cup 2026",
-  "lastUpdated": "2026-07-14T20:08:12Z",
+  "lastUpdated": "2026-07-14T21:14:15Z",
   "source": "ESPN public scoreboard API + the-odds-api.com",
   "rounds": [
     {
@@ -1115,7 +1115,7 @@
         {
           "id": "m101",
           "matchNumber": 101,
-          "status": "scheduled",
+          "status": "live",
           "date": "2026-07-14T19:00Z",
           "venue": {
             "name": "AT&T Stadium",
@@ -1132,8 +1132,17 @@
             "name": "Spain",
             "code": "ESP",
             "iso2": "ES",
-            "score": 0,
-            "scorers": []
+            "score": 1,
+            "scorers": [
+              {
+                "name": "Mikel Oyarzabal",
+                "minute": "22'"
+              },
+              {
+                "name": "Pedro Porro",
+                "minute": "58'"
+              }
+            ]
           },
           "odds": {
             "home": 2.38,
