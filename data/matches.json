@@ -1,6 +1,6 @@
 {
   "tournament": "FIFA World Cup 2026",
-  "lastUpdated": "2026-07-14T12:52:52Z",
+  "lastUpdated": "2026-07-14T14:46:50Z",
   "source": "ESPN public scoreboard API + the-odds-api.com",
   "rounds": [
     {
@@ -1241,5 +1241,5 @@
       ]
     }
   ],
-  "oddsUpdated": "2026-07-14T11:43:43Z"
+  "oddsUpdated": "2026-07-14T14:46:49Z"
 }
