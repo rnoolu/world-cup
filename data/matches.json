@@ -1,6 +1,6 @@
 {
   "tournament": "FIFA World Cup 2026",
-  "lastUpdated": "2026-07-14T21:14:15Z",
+  "lastUpdated": "2026-07-14T22:15:09Z",
   "source": "ESPN public scoreboard API + the-odds-api.com",
   "rounds": [
     {
@@ -1115,7 +1115,7 @@
         {
           "id": "m101",
           "matchNumber": 101,
-          "status": "live",
+          "status": "finished",
           "date": "2026-07-14T19:00Z",
           "venue": {
             "name": "AT&T Stadium",
@@ -1132,7 +1132,7 @@
             "name": "Spain",
             "code": "ESP",
             "iso2": "ES",
-            "score": 1,
+            "score": 2,
             "scorers": [
               {
                 "name": "Mikel Oyarzabal",
@@ -1144,12 +1144,7 @@
               }
             ]
           },
-          "odds": {
-            "home": 2.38,
-            "away": 3.0,
-            "draw": 3.1,
-            "bookmaker": "William Hill"
-          },
+          "odds": null,
           "advancesTo": "m104"
         },
         {
@@ -1176,9 +1171,9 @@
             "scorers": []
           },
           "odds": {
-            "home": 2.71,
-            "away": 3.08,
-            "draw": 2.95,
+            "home": 2.76,
+            "away": 3.09,
+            "draw": 2.88,
             "bookmaker": "Pinnacle"
           },
           "advancesTo": "m104"
@@ -1199,9 +1194,9 @@
             "city": "Miami Gardens, Florida"
           },
           "home": {
-            "name": "Semifinal 1 Loser",
-            "code": "SF ",
-            "iso2": "",
+            "name": "France",
+            "code": "FRA",
+            "iso2": "FR",
             "score": 0,
             "scorers": []
           },
@@ -1231,9 +1226,9 @@
             "city": "East Rutherford, New Jersey"
           },
           "home": {
-            "name": "Semifinal 1 Winner",
-            "code": "SFW",
-            "iso2": "",
+            "name": "Spain",
+            "code": "ESP",
+            "iso2": "ES",
             "score": 0,
             "scorers": []
           },
@@ -1250,5 +1245,5 @@
       ]
     }
   ],
-  "oddsUpdated": "2026-07-14T18:46:41Z"
+  "oddsUpdated": "2026-07-14T22:15:08Z"
 }
