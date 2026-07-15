@@ -1,6 +1,6 @@
 {
   "tournament": "FIFA World Cup 2026",
-  "lastUpdated": "2026-07-15T19:35:35Z",
+  "lastUpdated": "2026-07-15T20:41:23Z",
   "source": "ESPN public scoreboard API + the-odds-api.com",
   "rounds": [
     {
@@ -1150,7 +1150,7 @@
         {
           "id": "m102",
           "matchNumber": 102,
-          "status": "scheduled",
+          "status": "live",
           "date": "2026-07-15T19:00Z",
           "venue": {
             "name": "Mercedes-Benz Stadium",
@@ -1160,8 +1160,13 @@
             "name": "England",
             "code": "ENG",
             "iso2": "GB-ENG",
-            "score": 0,
-            "scorers": []
+            "score": 1,
+            "scorers": [
+              {
+                "name": "Anthony Gordon",
+                "minute": "55'"
+              }
+            ]
           },
           "away": {
             "name": "Argentina",
