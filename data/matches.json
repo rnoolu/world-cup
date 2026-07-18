@@ -1,6 +1,6 @@
 {
   "tournament": "FIFA World Cup 2026",
-  "lastUpdated": "2026-07-18T21:05:50Z",
+  "lastUpdated": "2026-07-18T22:06:20Z",
   "source": "ESPN public scoreboard API + the-odds-api.com",
   "rounds": [
     {
@@ -1218,13 +1218,25 @@
               {
                 "name": "Declan Rice",
                 "minute": "3'"
+              },
+              {
+                "name": "Ezri Konsa",
+                "minute": "18'"
+              },
+              {
+                "name": "Bukayo Saka",
+                "minute": "37'"
+              },
+              {
+                "name": "Bukayo Saka",
+                "minute": "45'+1'"
               }
             ]
           },
           "odds": {
-            "home": 1.82,
-            "away": 3.65,
-            "draw": 4.15,
+            "home": 55.0,
+            "away": 1.02,
+            "draw": 24.0,
             "bookmaker": "Winamax (DE)"
           },
           "advancesTo": null
@@ -1260,8 +1272,8 @@
           },
           "odds": {
             "home": 2.36,
-            "away": 3.8,
-            "draw": 3.1,
+            "away": 3.75,
+            "draw": 3.15,
             "bookmaker": "Betfair"
           },
           "advancesTo": null
@@ -1269,5 +1281,5 @@
       ]
     }
   ],
-  "oddsUpdated": "2026-07-18T18:59:15Z"
+  "oddsUpdated": "2026-07-18T22:06:19Z"
 }
