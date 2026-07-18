@@ -1,6 +1,6 @@
 {
   "tournament": "FIFA World Cup 2026",
-  "lastUpdated": "2026-07-18T22:06:20Z",
+  "lastUpdated": "2026-07-18T23:09:48Z",
   "source": "ESPN public scoreboard API + the-odds-api.com",
   "rounds": [
     {
@@ -1207,13 +1207,30 @@
             "code": "FRA",
             "iso2": "FR",
             "score": 0,
-            "scorers": []
+            "scorers": [
+              {
+                "name": "Kylian Mbappé",
+                "minute": "48'"
+              },
+              {
+                "name": "Bradley Barcola",
+                "minute": "54'"
+              },
+              {
+                "name": "Kylian Mbappé",
+                "minute": "66'"
+              },
+              {
+                "name": "Ousmane Dembélé",
+                "minute": "90'+6'"
+              }
+            ]
           },
           "away": {
             "name": "England",
             "code": "ENG",
             "iso2": "GB-ENG",
-            "score": 1,
+            "score": 4,
             "scorers": [
               {
                 "name": "Declan Rice",
@@ -1230,6 +1247,14 @@
               {
                 "name": "Bukayo Saka",
                 "minute": "45'+1'"
+              },
+              {
+                "name": "Bukayo Saka",
+                "minute": "87'"
+              },
+              {
+                "name": "Jude Bellingham",
+                "minute": "90'+8'"
               }
             ]
           },
