@@ -1,6 +1,6 @@
 {
   "tournament": "FIFA World Cup 2026",
-  "lastUpdated": "2026-07-19T19:40:31Z",
+  "lastUpdated": "2026-07-19T20:28:20Z",
   "source": "ESPN public scoreboard API + the-odds-api.com",
   "rounds": [
     {
@@ -1270,7 +1270,7 @@
         {
           "id": "m104",
           "matchNumber": 104,
-          "status": "scheduled",
+          "status": "live",
           "date": "2026-07-19T19:00Z",
           "venue": {
             "name": "MetLife Stadium",
