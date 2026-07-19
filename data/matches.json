@@ -1,6 +1,6 @@
 {
   "tournament": "FIFA World Cup 2026",
-  "lastUpdated": "2026-07-18T23:09:48Z",
+  "lastUpdated": "2026-07-19T00:09:09Z",
   "source": "ESPN public scoreboard API + the-odds-api.com",
   "rounds": [
     {
@@ -1196,7 +1196,7 @@
         {
           "id": "m103",
           "matchNumber": 103,
-          "status": "live",
+          "status": "finished",
           "date": "2026-07-18T21:00Z",
           "venue": {
             "name": "Hard Rock Stadium",
@@ -1206,7 +1206,7 @@
             "name": "France",
             "code": "FRA",
             "iso2": "FR",
-            "score": 0,
+            "score": 4,
             "scorers": [
               {
                 "name": "Kylian Mbappé",
@@ -1230,7 +1230,7 @@
             "name": "England",
             "code": "ENG",
             "iso2": "GB-ENG",
-            "score": 4,
+            "score": 6,
             "scorers": [
               {
                 "name": "Declan Rice",
@@ -1258,12 +1258,7 @@
               }
             ]
           },
-          "odds": {
-            "home": 55.0,
-            "away": 1.02,
-            "draw": 24.0,
-            "bookmaker": "Winamax (DE)"
-          },
+          "odds": null,
           "advancesTo": null
         }
       ]
