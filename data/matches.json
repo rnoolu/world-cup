@@ -1,6 +1,6 @@
 {
   "tournament": "FIFA World Cup 2026",
-  "lastUpdated": "2026-07-19T22:26:29Z",
+  "lastUpdated": "2026-07-19T23:29:35Z",
   "source": "ESPN public scoreboard API + the-odds-api.com",
   "rounds": [
     {
@@ -1270,7 +1270,7 @@
         {
           "id": "m104",
           "matchNumber": 104,
-          "status": "live",
+          "status": "finished",
           "date": "2026-07-19T19:00Z",
           "venue": {
             "name": "MetLife Stadium",
@@ -1280,7 +1280,7 @@
             "name": "Spain",
             "code": "ESP",
             "iso2": "ES",
-            "score": 0,
+            "score": 1,
             "scorers": [
               {
                 "name": "Ferran Torres",
@@ -1295,12 +1295,7 @@
             "score": 0,
             "scorers": []
           },
-          "odds": {
-            "home": 2.46,
-            "away": 4.2,
-            "draw": 2.8,
-            "bookmaker": "Betfair"
-          },
+          "odds": null,
           "advancesTo": null
         }
       ]
