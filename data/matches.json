@@ -1,6 +1,6 @@
 {
   "tournament": "FIFA World Cup 2026",
-  "lastUpdated": "2026-07-19T21:26:34Z",
+  "lastUpdated": "2026-07-19T22:26:29Z",
   "source": "ESPN public scoreboard API + the-odds-api.com",
   "rounds": [
     {
@@ -1281,7 +1281,12 @@
             "code": "ESP",
             "iso2": "ES",
             "score": 0,
-            "scorers": []
+            "scorers": [
+              {
+                "name": "Ferran Torres",
+                "minute": "106'"
+              }
+            ]
           },
           "away": {
             "name": "Argentina",
