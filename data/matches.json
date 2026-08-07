@@ -1,6 +1,6 @@
 {
   "tournament": "FIFA World Cup 2026",
-  "lastUpdated": "2026-08-07T14:18:19Z",
+  "lastUpdated": "2026-08-07T15:24:12Z",
   "source": "ESPN public scoreboard API + the-odds-api.com",
   "rounds": [
     {
@@ -807,12 +807,7 @@
             "code": "ESP",
             "iso2": "ES",
             "score": 1,
-            "scorers": [
-              {
-                "name": "Mikel Merino",
-                "minute": "90'+1'"
-              }
-            ]
+            "scorers": []
           },
           "odds": null,
           "advancesTo": "m98"
