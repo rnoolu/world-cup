@@ -1,6 +1,6 @@
 {
   "tournament": "FIFA World Cup 2026",
-  "lastUpdated": "2026-09-02T04:37:38Z",
+  "lastUpdated": "2026-09-02T09:02:57Z",
   "source": "ESPN public scoreboard API + the-odds-api.com",
   "rounds": [
     {
@@ -1036,14 +1036,28 @@
             "code": "NOR",
             "iso2": "NO",
             "score": 1,
-            "scorers": []
+            "scorers": [
+              {
+                "name": "Andreas Schjelderup",
+                "minute": "36'"
+              }
+            ]
           },
           "away": {
             "name": "England",
             "code": "ENG",
             "iso2": "GB-ENG",
             "score": 2,
-            "scorers": []
+            "scorers": [
+              {
+                "name": "Jude Bellingham",
+                "minute": "45'+2'"
+              },
+              {
+                "name": "Jude Bellingham",
+                "minute": "93'"
+              }
+            ]
           },
           "odds": null,
           "advancesTo": "m102"
